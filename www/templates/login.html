@@ -1,0 +1,78 @@
+<ion-view view-title="Sign In" class="loginBg" hide-nav-bar="true" >
+  	<ion-content class="padding">
+	  	<div class="row responsive-sm padding remvoeBP">
+		  	<div class="row row-center">
+		  		<div class="col">
+					<!-- <div class="app-logo"><img src="img/logo.png"></div>  -->
+					<div class="app-logo"><h3 class="title">Becho</h3></div>
+
+					<div class="login-form-container">
+						<form ng-submit="login(user)">
+							<div class="list list-inset removePM" ng-hide="!loginPageShow">
+							  	<ion-md-input type="text" ng-model="user.email" placeholder="My email address is" highlight-color="calm" ></ion-md-input>
+							  	<ion-md-input type="password" ng-model="user.password" placeholder="My password is" highlight-color="calm" ></ion-md-input>
+							</div>
+							<div class="loginButton" ng-hide="!loginPageShow"><button class="button ion-unlocked button-block button-balanced" type="submit" > Login </button>  </div>
+						</form>
+					</div>
+
+					<div class="signup-form-container">
+						<form ng-submit="signUp(user);">
+							<div class="list list-inset removePM" ng-hide="!signup">
+							  	<ion-md-input type="email" ng-model="user.email" placeholder="My email address is" highlight-color="calm" ></ion-md-input>
+							  	<ion-md-input type="password" ng-model="user.password" placeholder="My password is" highlight-color="calm" ></ion-md-input>
+							  	<ion-md-input type="number" ng-model="user.mobile" placeholder="My Phone number is" highlight-color="calm" ng-minlength="10" ng-maxlength="10" ></ion-md-input>
+							  	<div class="row">
+									<div class="col">
+										<div class="item item-checkbox check-box-style">
+										   Vendor
+										   <label class="checkbox">
+										   <input ng-model="user.role[0]" ng-true-value="'vendor'" ng-false-value="'NO'" type="checkbox">
+										   </label>
+										</div>
+									</div>	
+									<div class="col">
+										<div class="item item-checkbox check-box-style">
+										   Reseller
+										   <label class="checkbox">
+										   <input ng-model="user.role[1]" ng-true-value="'reseller'" ng-false-value="'NO'" type="checkbox">
+										   </label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="signUpButton" ng-hide="!signup"><button type="submit" class="button ion-person button-block button-balanced" type="submit" > Sign Up </button>  </div>
+						</form>
+					</div>
+
+					<div class="sign-up-txt text-center" ng-hide="!loginPageShow">
+				  		Don't have an account? <a ng-click="signUpPage()" href="javascript:void(0)">Sign Up</a>
+				  	</div>
+				  	<div class="sign-up-txt text-center" ng-hide="!signup">
+				  		<a ng-click="LoginPage()" href="javascript:void(0)">Login</a>
+				  	</div>
+			  	</div>
+		  	</div>
+	  	</div>
+
+  	</ion-content>
+
+  	<script id="verify_otp.html" type="text/ng-template">
+	  	<ion-modal-view>
+		    <ion-header-bar class="bar bar-header bar-positive">
+		        <h1 class="title text-center">Verify Mobile Number</h1>
+		        <!-- <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button> -->
+		    </ion-header-bar>
+		    <ion-content class="padding">
+		        <div class="row row-center">
+		        	<div class="col-75">
+			            <ion-md-input class="border-bottom" type="number" ng-model="Verify" placeholder="Enter OTP" highlight-color="calm" ></ion-md-input>
+		        	</div>
+		        	<div class="col-25 pad-left">
+		        		<button class="verify-btn button button-full button-positive" ng-click="verifyOtp(Verify)">Verify otp</button>
+		        	</div>
+		        </div>
+		    </ion-content>
+		</ion-modal-view>
+	</script>
+</ion-view>
