@@ -34,8 +34,8 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages'])
         },
         request: function (config) {
            config.headers = config.headers || {};
-           if (window.localStorage && localStorage.getItem('token')) {
-               var token = localStorage.getItem("token");
+           if (window.localStorage && localStorage.getItem('becho')) {
+               var token = localStorage.getItem("becho");
                config.headers.Authorization = 'Bearer ' + token;
            }
            return config;

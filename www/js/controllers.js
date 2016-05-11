@@ -51,12 +51,17 @@ angular.module('becho')
     }
 
     $scope.signUp = function(user) {
-        user.role = [user.role[0], user.role[1]];        
-        console.log(user);
+        user.role = [];
+        user.role.push(user.vendor, user.reseller);
+        for(var i=0; i<user.role.length; i++) {
+          if(user.role[i] === false || user.role[i] === 'undefined') {
+            user.role.splice(i,1);
+          }
+        }
         userService.signUp(user)
           .then(function(response) {
               $scope.openModal();
-              $scope.user_id = response.user_id;
+              $scope.user_id = response.id;
           }).catch(function(err) {
             var alertPopup = $ionicPopup.alert({
                 title: 'signup failed!',
@@ -112,4 +117,14 @@ angular.module('becho')
 
 .controller('ChatDetailCtrl', function($scope, $stateParams) {})
 
-.controller('AccountCtrl', function($scope) {});
+.controller('AccountCtrl', function($scope, userService) {
+  $scope.updateaccount = function(user) {
+      userService.updateAccount(user)
+        .then(function(response) {
+          console.log('response-------->',response);
+        }).catch(function(err) {
+          console.log('err-------->',err)
+        })
+  }
+
+});

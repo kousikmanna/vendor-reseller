@@ -27,7 +27,7 @@
 										<div class="item item-checkbox check-box-style">
 										   Vendor
 										   <label class="checkbox">
-										   <input ng-model="user.role[0]" ng-true-value="'vendor'" ng-false-value="'NO'" type="checkbox">
+										   <input ng-model="user.vendor" ng-init="user.vendor=false" ng-true-value="'vendor'" type="checkbox">
 										   </label>
 										</div>
 									</div>	
@@ -35,7 +35,7 @@
 										<div class="item item-checkbox check-box-style">
 										   Reseller
 										   <label class="checkbox">
-										   <input ng-model="user.role[1]" ng-true-value="'reseller'" ng-false-value="'NO'" type="checkbox">
+										   <input ng-model="user.reseller" ng-init="user.reseller=false" ng-true-value="'reseller'" type="checkbox">
 										   </label>
 										</div>
 									</div>
