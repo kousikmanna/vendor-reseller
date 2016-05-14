@@ -1,50 +1,53 @@
-angular.module('starter.services', [])
+angular.module('becho')
 
-.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
+.service('userService', function($q, $http) {
+    this.login = function(user) {
+        var deffered = $q.defer();
+        console.log('use');
+        $http.post(becho_base_url+'/user/login', user)
+            .success(function(res) {
+                deffered.resolve(res);
+            }).error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;    
+    };
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
+    this.logout = function() {};
 
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
+    this.signUp = function(user) {
+        var deffered = $q.defer();
+        $http.post(becho_base_url+'/user/create', user, {headers: { 'Content-Type' : 'application/json'}})
+            .success(function(res) {
+                deffered.resolve(res);
+            }).error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;
+    };
+
+    this.verifyotp = function(otp, user_id) {
+        console.log(user_id);
+        var deffered = $q.defer();
+        $http.post(becho_base_url+'/verify-otp/'+user_id, {"otp":otp})
+            .success(function(res) {
+                deffered.resolve(res);
+            }).error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;
     }
-  };
+
+    this.updateAccount = function(user) {
+        console.log(user);
+        var deffered = $q.defer();
+        $http.post(becho_base_url+'/user/account', user)
+            .success(function(response) {
+                deffered.resolve(response);
+            }).error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;    
+    }
+
 });

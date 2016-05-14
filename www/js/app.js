@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,6 +19,11 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages'])
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
+    }
+    if(localStorage.getItem('becho') !== null) {
+      return true;
+    } else {
+      $state.go('login');
     }
   });
 })
@@ -47,25 +52,25 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages'])
   $httpProvider.interceptors.push('httpinterceptor');
   $ionicConfigProvider.tabs.position('bottom');
 
-  var resolve= {
-        auth: (['$q', '$state', function($q, $state) {
-            var defer = $q.defer();
-            console.log('in');
-            if(localStorage.getItem('becho')) {
-                console.log('hello');
-                defer.resolve({
-                    user:  function() {
-                         return true;
-                    }
-                });
-            } else {
-                console.log('else');
-                defer.reject();
-                $state.go('login');
-            }
-            return defer.promise;
-        }])
-  };
+  // var resolve= {
+  //       auth: (['$q', '$state', function($q, $state) {
+  //           var defer = $q.defer();
+  //           console.log('in');
+  //           if(localStorage.getItem('becho')) {
+  //               console.log('hello');
+  //               defer.resolve({
+  //                   user:  function() {
+  //                        return true;
+  //                   }
+  //               });
+  //           } else {
+  //               console.log('else');
+  //               defer.reject();
+  //               $state.go('login');
+  //           }
+  //           return defer.promise;
+  //       }])
+  // };
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -84,6 +89,7 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages'])
         url: '/tab',
         abstract: true,
         templateUrl: 'templates/tabs.html',
+        // resolve: resolve
     })
 
     // Each tab has its own nav history stack:  
@@ -108,12 +114,12 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages'])
         }
     })
 
-    .state('tab.chats', {
-        url: '/chats',
+    .state('tab.products', {
+        url: '/products',
         views: {
-            'tab-chats': {
-                templateUrl: 'templates/tab-chats.html',
-                controller: 'ChatsCtrl'
+            'tab-products': {
+                templateUrl: 'templates/tab-products.html',
+                controller: 'ProductsCtrl'
             }
         }
     })
@@ -129,7 +135,7 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages'])
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
-  // $urlRouterProvider.otherwise('/tab/account');
+  // $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/tab/dash');
 
 });

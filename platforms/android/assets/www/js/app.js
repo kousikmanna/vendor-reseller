@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,10 +20,57 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    if(localStorage.getItem('becho') !== null) {
+      return true;
+    } else {
+      $state.go('login');
+    }
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.factory('httpinterceptor', ['$q', function($q) {  
+      return {
+        responseError: function(response) {
+            if (response.status == 401 || response.data.status == 401){
+                localStorage.clear();
+                window.location = '/login';
+            }
+            return $q.reject(response);
+        },
+        request: function (config) {
+           config.headers = config.headers || {};
+           if (window.localStorage && localStorage.getItem('becho')) {
+               var token = localStorage.getItem("becho");
+               config.headers.Authorization = 'Bearer ' + token;
+           }
+           return config;
+       },
+      }
+  }])
+
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
+  $httpProvider.interceptors.push('httpinterceptor');
+  $ionicConfigProvider.tabs.position('bottom');
+
+  // var resolve= {
+  //       auth: (['$q', '$state', function($q, $state) {
+  //           var defer = $q.defer();
+  //           console.log('in');
+  //           if(localStorage.getItem('becho')) {
+  //               console.log('hello');
+  //               defer.resolve({
+  //                   user:  function() {
+  //                        return true;
+  //                   }
+  //               });
+  //           } else {
+  //               console.log('else');
+  //               defer.reject();
+  //               $state.go('login');
+  //           }
+  //           return defer.promise;
+  //       }])
+  // };
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -31,55 +78,64 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-  // setup an abstract state for the tabs directive
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'loginCtrl'
+  })
+
+  //setup an abstract state for the tabs directive
     .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
-
-  // Each tab has its own nav history stack:
-
-  .state('tab.dash', {
-    url: '/dash',
-    views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
-      }
-    }
-  })
-
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
+        url: '/tab',
+        abstract: true,
+        templateUrl: 'templates/tabs.html',
+        // resolve: resolve
     })
+
+    // Each tab has its own nav history stack:  
+
+    .state('tab.account', {
+        url: '/account',
+        views: {
+            'tab-account': {
+                templateUrl: 'templates/tab-account.html',
+                controller: 'AccountCtrl'
+            }
+        }
+    })
+
+    .state('tab.dash', {
+        url: '/dash',
+        views: {
+            'tab-dash': {
+            templateUrl: 'templates/tab-dash.html',
+            controller: 'DashCtrl'
+            }
+        }
+    })
+
+    .state('tab.products', {
+        url: '/products',
+        views: {
+            'tab-products': {
+                templateUrl: 'templates/tab-products.html',
+                controller: 'ProductsCtrl'
+            }
+        }
+    })
+
     .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+        url: '/chats/:chatId',
+            views: {
+                'tab-chats': {
+                templateUrl: 'templates/chat-detail.html',
+                controller: 'ChatDetailCtrl'
+            }
         }
-      }
-    })
-
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
-  });
+    });
 
   // if none of the above states are matched, use this as the fallback
+  // $urlRouterProvider.otherwise('/login');
   $urlRouterProvider.otherwise('/tab/dash');
 
 });

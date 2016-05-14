@@ -1,9 +1,56 @@
-<ion-view view-title="Account">
-  <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
-  </ion-content>
+<ion-view view-title="Account" hide-nav-bar="false">
+  	<ion-content>
+    	<ion-list>
+    		<form ng-submit="updateaccount(user)">
+				<div class="list list-inset removePM">
+					<div class="row zero-rgt-padding zero-lft-padding">
+						<div class="col-67 common-class">
+							<div class="row responsive-sm zero-rgt-padding zero-lft-padding zero-btm-padding">
+								<div class="col-90">
+									<ion-md-input type="text" class="border-bottom" ng-model="user.firstName" placeholder="My first name is" highlight-color="calm" ></ion-md-input>
+								</div>
+								<div class="col-90">
+									<ion-md-input type="text" class="border-bottom" ng-model="user.lastName" placeholder="My last name is" highlight-color="calm" ></ion-md-input>
+								</div>
+							</div>							
+						</div>
+						<div class="col-33 common-class">
+							<input type="file" hidden="">
+							<div class="upload-img item item-thumbnail-right" href="javascript:void(0)" ng-click="UploadImage()">
+							    <img src="img/image.png">
+							</div>
+						</div>
+					</div>
+				  	<div class="row">
+				  		<div class="col-90 margin-btm-15">
+				  			<ion-md-input type="email" class="border-bottom" ng-model="user.email" placeholder="My email is" highlight-color="calm" ></ion-md-input>
+				  		</div>
+				  	</div>
+				  	<div class="row">
+				  		<div class="col-90 margin-btm-15">
+				  			<ion-md-input type="text" class="border-bottom" ng-model="user.webshop" placeholder="Webshop/ Website Url" highlight-color="calm" ></ion-md-input>
+				  		</div>
+				  	</div>
+				  	<div class="row">
+				  		<div class="col-90 margin-btm-15">
+				  			<ion-md-input type="number" class="border-bottom" ng-model="user.margin" placeholder="Customer Margin" highlight-color="calm" ></ion-md-input>
+				  		</div>
+				  	</div>
+				  	<div class="row">
+				  		<div class="col-90">
+				  		<span class="desc-text item item-input item-md-label">Description</span>
+				  		<label class="item item-input">
+				  			<textarea rows="2" cols="50"></textarea>
+				  		</label>
+					  	</div>
+				  	</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<button class="savebutton button ion-save button-block" type="submit" > Save </button>
+					</div>  
+				</div>
+			</form>
+    	</ion-list>
+  	</ion-content>
 </ion-view>

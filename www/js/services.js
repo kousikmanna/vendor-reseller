@@ -1,6 +1,6 @@
 angular.module('becho')
 
-.service('userService', function($q, $http, $rootScope) {
+.service('userService', function($q, $http) {
     this.login = function(user) {
         var deffered = $q.defer();
         console.log('use');
@@ -17,7 +17,7 @@ angular.module('becho')
 
     this.signUp = function(user) {
         var deffered = $q.defer();
-        $http.post(becho_base_url+'/user/create', user)
+        $http.post(becho_base_url+'/user/create', user, {headers: { 'Content-Type' : 'application/json'}})
             .success(function(res) {
                 deffered.resolve(res);
             }).error(function(err) {
@@ -39,7 +39,6 @@ angular.module('becho')
     }
 
     this.updateAccount = function(user) {
-        console.log(user);
         var deffered = $q.defer();
         $http.post(becho_base_url+'/user/account', user)
             .success(function(response) {
