@@ -3,7 +3,7 @@ angular.module('becho')
 .service('userService', function($q, $http) {
     this.login = function(user) {
         var deffered = $q.defer();
-        console.log('use');
+        console.log('user',user);
         $http.post(becho_base_url+'/user/login', user)
             .success(function(res) {
                 deffered.resolve(res);
@@ -48,5 +48,52 @@ angular.module('becho')
             })
         return deffered.promise;    
     }
+
+     this.uploadProfilePic = function(user) {
+        var deffered = $q.defer();
+        $http.post(becho_base_url+'/image_upload', user)
+            .success(function(res) {
+                deffered.resolve(res);
+            }).error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;    
+    }
+
+    this.uploadProductPic = function(user) {
+        var deffered = $q.defer();
+        $http.post(becho_base_url+'/image_upload', user)
+            .success(function(res) {
+                deffered.resolve(res);
+            }).error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;    
+    }
+    
+    this.productAdd = function(product) {
+        var deffered = $q.defer();
+        $http.post(becho_base_url+'/product/addproduct', product)
+            .success(function(res) {
+                deffered.resolve(res);
+            }).error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;    
+    }
+
+    this.fetchProduct = function(){
+        var deffered = $q.defer();
+        $http.get(becho_base_url+'/product/list/mine')
+            .success(function(res){
+                deffered.resolve(res);
+            })
+            .error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;
+
+    }
+
 
 });

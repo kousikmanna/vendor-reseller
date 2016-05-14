@@ -173,10 +173,48 @@ label.no-errors.item-md-label input:focus ~ .input-label, label.no-errors.item-m
     padding: 16px 8px 5px;
     color: #999;
 }
-.bar-dark .button.addBtn {
+.bar-dark .button .addBtn {
    background-color: transparent;
 }
 .tabs-striped .tabs {
     border-top: 1px solid #ddd;
     box-shadow: 0px 2px 10px #999;
+}
+.upload-img {
+  border: 0;
+  margin-top: 20px;
+}
+
+.fileUpload {
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  text-align: center;
+}
+
+.label1{
+  cursor: pointer;
+  position: relative;
+}
+
+.fileUpload input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.profileImg{
+  width:100px;
+  z-index: 1;
+  position: relative;
+  opacity: 0.5;
+}
+.check-box-style-product{
+  float:right;
+  border: none !important;
 }

@@ -15,9 +15,19 @@
 							</div>							
 						</div>
 						<div class="col-33 common-class">
-							<input type="file" hidden="">
+							<!-- input type="file" hidden="">
 							<div class="upload-img item item-thumbnail-right" href="javascript:void(0)" ng-click="UploadImage()">
 							    <img src="img/image.png">
+							</div> -->
+							<div class="fileUpload clearfix upload-img">
+						         <label for="fileinput" class=" label1 clearfix">
+						         <!-- <span class ="change">Change</span> -->
+                                    <img id="image" class="profileImg" ng-if="!user.profilePic" src="img/image.png" alt="" accept="image/x-png, image/gif, image/jpeg">
+                         			<img id="image" class="profileImg" ng-if="user.profilePic" id="image" ng-src="{{user.profilePic}}" alt="" >
+                         			<img ng-if="uploadingProfilePic" class="reject-load"  src="img/animated.gif">
+                                   <input type="file" id="fileinput" name="uploadImage" class="upload" ng-model="user.profilePic" onchange="angular.element(this).scope().uploadProfilePic(this)" accept="image/x-png, image/gif, image/jpeg">
+                                </label>
+                                
 							</div>
 						</div>
 					</div>

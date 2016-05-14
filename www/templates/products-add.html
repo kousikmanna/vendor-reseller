@@ -1,0 +1,58 @@
+
+
+<ion-view view-title="Products Add">
+	<ion-content>
+		<ion-list>
+		  <form ng-submit="productAdd(product)">
+		  	<div class = "list list-inset addList">
+		  		<div class = "row zero-rgt-adding zero-lft-padding">
+		  			<div class = "col-67 common-class">
+			  			<div class="row responsive-sm zero-rgt-padding zero-lft-padding zero-btm-padding">
+			  				<div class = "col-90">
+			  					<ion-md-input type="text" class="border-bottom" ng-model="product.title" placeholder="Title" highlight-color="calm"></ion-md-input>
+			  				</div>
+			  				<div class = "col-90">
+			  					<ion-md-input type="text" class="border-bottom" ng-model="product.mrp" placeholder="MRP" highlight-color="calm"></ion-md-input>	
+			  				</div>
+			  			</div>
+		  			</div>
+		  			<div class = "col-33 common-class">
+		  				<!-- <input type="file" hidden="">
+		  				<div class="upload-img item item-thumbnail-right" href="javascript:void(0)" ng-click="UploadImage()">
+		  					<img src="img/image.png">
+		  				</div> -->
+		  				<div class="fileUpload clearfix upload-img">
+					         <label for="fileinput" class=" label1 clearfix">
+					         <!-- <span class ="change">Change</span> -->
+                                <img id="image" class="profileImg" ng-if="!product.productPic" src="img/image.png" alt="" accept="image/x-png, image/gif, image/jpeg">
+                     			<img id="image" class="profileImg" ng-if="product.productPic" id="image" ng-src="{{product.productPic}}" alt="" >
+                     			<img ng-if="uploadingProductPic" class="reject-load"  src="img/animated.gif">
+                               <input type="file" id="fileinput" name="uploadImage" class="upload" ng-model="product.productPic" onchange="angular.element(this).scope().uploadProductPic(this)" accept="image/x-png, image/gif, image/jpeg">
+                            </label>
+                            
+						</div>
+		  			</div>
+		  			
+		  		</div>
+		  		<div class = "row">
+		  			<div class="col-90 margin-btn-15">
+		  				<ion-md-input type="text" class="border-bottom"  ng-model="product.
+		  				stock" placeholder="Stock" highlight-color="calm"></ion-md-input>
+		  			</div>
+		  		</div>
+		  		<div class="row">
+			  		<div class="col-90 margin-btm-15">
+			  			<ion-md-input type="text" class="border-bottom" ng-model="product.sellingPrice" placeholder="Selling Price" highlight-color="calm" ></ion-md-input>
+			  		</div>
+			  	</div>
+		  	</div>
+		  	<div class="row">
+		  		<div class="col">
+		  			<button class="savebutton button ion-save button-block" type="submit"> Save </button>
+		  		</div>
+		  	</div>
+		  	
+		  </form>
+		</ion-list>
+	</ion-content>	
+</ion-view>
