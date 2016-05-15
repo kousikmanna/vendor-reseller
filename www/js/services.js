@@ -82,6 +82,20 @@ angular.module('becho')
         return deffered.promise;    
     }
 
+    this.pushProduct = function(productList){
+        var deffered = $q.defer();
+        $http.post(becho_base_url+'/product/push', productList)
+            .success(function(res){
+                console.log('res',res);
+                deffered.resolve(res);
+            })
+            .error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;
+    }
+
+
     this.fetchProduct = function(){
         var deffered = $q.defer();
         $http.get(becho_base_url+'/product/list/mine')

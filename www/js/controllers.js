@@ -145,6 +145,26 @@ angular.module('becho')
             template: 'Try after some time!'
         });
     });
+   
+    // $scope.productCheckList = new Array();
+    $scope.pushProductToReseller={};
+    var productDetail = new Array();
+    $scope.pushProductToReseller.productList = productDetail;
+
+    $scope.pushProductToList = function(productId, mrp) {
+      console.log('productId',productId);
+      var checkProduct = _.where($scope.pushProductToReseller.productList, {productId: productId});
+      if(checkProduct && checkProduct.length > 0){
+          $scope.pushProductToReseller.productList = _.without($scope.pushProductToReseller.productList, _.findWhere($scope.pushProductToReseller.productList, {productId: productId}));
+      }else{
+          var productObj ={};
+          productObj.productId = productId;
+          productObj.mrp = mrp;
+          $scope.pushProductToReseller.productList.push(productObj);
+      }
+      console.log('$scope.pushProductToReseller.productList',$scope.pushProductToReseller.productList);
+      
+    }
 
     $scope.addProducts = function(){
        $state.go('tab.add-product');
@@ -168,6 +188,29 @@ angular.module('becho')
             });
         })
 
+    }
+
+    $scope.pushProduct = function() {
+      if($scope.pushProductToReseller.productList && $scope.pushProductToReseller.productList.length > 0){
+          userService.pushProduct($scope.pushProductToReseller)
+            .then(function(response) {
+                var alertPopup = $ionicPopup.alert({
+                  title: 'Product Push',
+                  template: 'Product push successfully'
+                });
+            }).catch(function(err) {
+              var alertPopup = $ionicPopup.alert({
+                  title: 'Product not Push!',
+                  template: 'Product not push successfully!'
+              });
+            })
+      }else{
+        var alertPopup = $ionicPopup.alert({
+            title: 'select product',
+            template: 'Please select product first then push!'
+        });
+      }
+        
     }
 
 
