@@ -125,11 +125,20 @@ angular.module('becho')
 })
 
 .controller('DashCtrl', function($scope, $state) {
-  $scope.logout = function() {
-    window.localStorage.clear();
-    $state.go('login');
-  }
-})
+    $scope.logout = function() {
+      window.localStorage.clear();
+      $state.go('login');
+    }
+    $scope.userType = {}
+    var userRole = localStorage.getItem('user');
+    if(userRole.vendor){
+      $scope.userType.role = 'Vendor';
+    }else if(userRole.reseller){
+      $scope.userType.role = 'Reseller';
+    }
+    console.log('userRole',$scope.userType);
+
+  })
 
 .controller('ProductsCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, userService) {
   $scope.base_url={}
