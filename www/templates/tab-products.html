@@ -12,8 +12,8 @@
       	<div class="list">
       		
       		<div class="item item-thumbnail-left">
-        			<img src="{{base_url.url}}{{product.image[0]}}" class="product-img">
-
+        			<img ng-if = "product.image[0]" src="{{base_url.url}}{{product.image[0]}}" class="product-img">
+              <img ng-if = "!product.image" src="img/samsung-galaxy-tab.jpg" class="product-img">
         			<h2>{{product.title}}</h2>
         			<p>Rs:{{product.mrp}}</p>
         			<p>Qty:{{product.stock}}</p>
