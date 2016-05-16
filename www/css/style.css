@@ -173,8 +173,20 @@ label.no-errors.item-md-label input:focus ~ .input-label, label.no-errors.item-m
     padding: 16px 8px 5px;
     color: #999;
 }
-.bar-dark .button .addBtn {
+.addBtn , .rm-btn{
    background-color: transparent;
+   color: #fff;
+}
+.button:hover {
+  color: #fff;
+}
+.bar-dark .button.button-clear {
+      font-weight: 500;
+      font-size: 14px;
+}
+.bar-dark .button.button-clear.add-btn, .bar-dark .button.button-clear.rm-btn {
+  border: 1px solid #fff;
+  padding: 0 10px;
 }
 .tabs-striped .tabs {
     border-top: 1px solid #ddd;
@@ -217,4 +229,8 @@ label.no-errors.item-md-label input:focus ~ .input-label, label.no-errors.item-m
 .check-box-style-product{
   float:right;
   border: none !important;
+}
+ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-color-active-positive .tab-item.activated, ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.activated {
+  color: #24b0d7;
+  border-color: #24b0d7;
 }
