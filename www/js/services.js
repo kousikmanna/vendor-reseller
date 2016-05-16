@@ -95,7 +95,6 @@ angular.module('becho')
         return deffered.promise;
     }
 
-
     this.fetchProduct = function(){
         var deffered = $q.defer();
         $http.get(becho_base_url+'/product/list/mine')
@@ -109,5 +108,30 @@ angular.module('becho')
 
     }
 
+    this.resellerList = function(){
+        var deffered = $q.defer();
+        $http.get(becho_base_url+'/reseller/list')
+            .success(function(res){
+                deffered.resolve(res);
+            })
+            .error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;
+
+    }
+
+     this.pushToSeseller = function(products){
+        var deffered = $q.defer();
+        $http.post(becho_base_url+'/product/push', products)
+            .success(function(res){
+                deffered.resolve(res);
+            })
+            .error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;
+
+    }
 
 });

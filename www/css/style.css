@@ -233,4 +233,18 @@ label.no-errors.item-md-label input:focus ~ .input-label, label.no-errors.item-m
 ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-color-active-positive .tab-item.activated, ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.activated {
   color: #24b0d7;
   border-color: #24b0d7;
+}  
+.resellerDetail{
+  float:right;
+}
+.check-box-style-reseller{
+   float:left;
+  border: none !important;
+}
+.push-button{
+  text-align:center;
+  vertical-align: middle;
+  margin-left: 40%;
+  margin-right: 40%;
+  margin-top: 10px;
 }

@@ -1,0 +1,22 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title text-center">Reseller List</h1>
+        <!-- <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button> -->
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="row">
+	        <div class="col" ng-repeat="reseller in resellerList">
+		      	<div class="list">
+		      		<div class="item">
+	        			<h2>{{reseller.firstName}}</h2>
+		              	<p class="item item-checkbox check-box-style-product">
+			                <label class="checkbox">
+			                  <input type="checkbox">
+			                </label>
+		              	</p>
+		      		</div>
+	  		  </div>  
+			</div>  
+        </div>
+    </ion-content>
+</ion-modal-view>
