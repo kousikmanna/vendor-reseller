@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages', 'underscore'])
+angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages', 'underscore', 'highcharts-ng'])
 
 .run(function($ionicPlatform, $state) {
   $ionicPlatform.ready(function() {
