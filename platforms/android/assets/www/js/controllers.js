@@ -146,8 +146,16 @@ angular.module('becho')
   $scope.product = {};
   userService.fetchProduct()
       .then(function(response){
-        $scope.productList = response;
-        console.log('$scope.productList', $scope.productList);
+        if(response != null){
+            $scope.productList = response;
+            console.log('$scope.productList', $scope.productList);
+        }else{
+            var alertPopup = $ionicPopup.alert({
+                title: 'Product not found',
+                template: 'Please add some products!'
+            });
+        }
+        
     }).catch(function(err){
         var alertPopup = $ionicPopup.alert({
             title: 'Product not found',
