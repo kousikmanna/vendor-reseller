@@ -218,3 +218,17 @@ label.no-errors.item-md-label input:focus ~ .input-label, label.no-errors.item-m
   float:right;
   border: none !important;
 }
+.resellerDetail{
+  float:right;
+}
+.check-box-style-reseller{
+   float:left;
+  border: none !important;
+}
+.push-button{
+  text-align:center;
+  vertical-align: middle;
+  margin-left: 40%;
+  margin-right: 40%;
+  margin-top: 10px;
+}

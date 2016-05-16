@@ -149,6 +149,7 @@ angular.module('becho')
     // $scope.productCheckList = new Array();
     $scope.pushProductToReseller={};
     var productDetail = new Array();
+    $scope.resellerIdList=[];
     $scope.pushProductToReseller.productList = productDetail;
 
     $scope.pushProductToList = function(productId, mrp) {
@@ -166,6 +167,33 @@ angular.module('becho')
       
     }
 
+    $scope.selectReseller = function(resellerId){
+      console.log('resellerId', resellerId);
+      var resellerNameList = _.where($scope.resellerIdList, {id: resellerId});
+      if(resellerNameList && resellerNameList.length > 0){
+           $scope.resellerIdList = _.without($scope.resellerIdList, _.findWhere($scope.resellerIdList, {id: resellerId}));
+      
+      }else{
+        $scope.resellerIdList.push({id: resellerId});
+      }
+      console.log('$scope.resellerIdList', $scope.resellerIdList);
+      
+    }
+    // $scope.selectReseller = function(resellerId){
+    //   console.log('resellerId', resellerId);
+    //   if($scope.pushProductToReseller &&  !$scope.pushProductToReseller.reseller){
+    //     $scope.pushProductToReseller.reseller=resellerId;
+    //   }else if($scope.pushProductToReseller &&  $scope.pushProductToReseller.reseller && $scope.pushProductToReseller.reseller == resellerId){
+    //       delete $scope.pushProductToReseller.reseller;
+    //   }else if($scope.pushProductToReseller &&  $scope.pushProductToReseller.reseller && $scope.pushProductToReseller.reseller != resellerId){
+    //     var alertPopup = $ionicPopup.alert({
+    //         title: 'Reseller',
+    //         template: 'At a time select one reseller'
+    //     });
+    //   }
+      
+    // }
+
     $scope.addProducts = function(){
        $state.go('tab.add-product');
     }
@@ -176,7 +204,7 @@ angular.module('becho')
       }
       userService.productAdd(product)
           .then(function(response) {
-            console.log('response',response)
+            console.log('response',response);
               var alertPopup = $ionicPopup.alert({
                 title: 'Product added',
                 template: 'Product added successfully'
@@ -192,27 +220,58 @@ angular.module('becho')
 
     $scope.pushProduct = function() {
       if($scope.pushProductToReseller.productList && $scope.pushProductToReseller.productList.length > 0){
-          userService.pushProduct($scope.pushProductToReseller)
+            userService.resellerList()
             .then(function(response) {
-                var alertPopup = $ionicPopup.alert({
-                  title: 'Product Push',
-                  template: 'Product push successfully'
-                });
+              console.log('response',response);
+              $scope.resellerList = response;
+              $scope.openModal();
             }).catch(function(err) {
-              var alertPopup = $ionicPopup.alert({
-                  title: 'Product not Push!',
-                  template: 'Product not push successfully!'
+               var alertPopup = $ionicPopup.alert({
+                  title: 'Reseller',
+                  template: 'Reseller not found!'
               });
-            })
+          })
+        
       }else{
         var alertPopup = $ionicPopup.alert({
             title: 'select product',
             template: 'Please select product first then push!'
         });
       }
-        
     }
 
+    $scope.pushToSeseller = function(){
+      if($scope.resellerIdList && $scope.resellerIdList.length == 0){
+        var alertPopup = $ionicPopup.alert({
+            title: 'Select Reseller',
+            template: 'Please select reseller first then push!'
+        });
+      }else if($scope.resellerIdList && $scope.resellerIdList.length > 1){
+        var alertPopup = $ionicPopup.alert({
+            title: 'Select Reseller',
+            template: 'At a time you can select one reseller!'
+        });
+      }else if($scope.resellerIdList && $scope.resellerIdList.length == 1){
+          $scope.pushProductToReseller.reseller = $scope.resellerIdList[0].id;
+          userService.pushToSeseller($scope.pushProductToReseller)
+            .then(function(response) {
+              console.log('==response==',response);
+              var alertPopup = $ionicPopup.alert({
+                  title: 'Product Push',
+                  template: 'Product pushed successfully'
+              });
+              $scope.closeModal();
+              $state.go('tab.products');
+            }).catch(function(err) {
+               var alertPopup = $ionicPopup.alert({
+                  title: 'Product Push',
+                  template: 'Product not pushed successfully'
+              });
+              $scope.closeModal();
+              $state.go('tab.products');
+          })
+      }
+    }
 
     $scope.uploadProductPic = function (imgElem) {
       var fileInput = $('#fileinput');
@@ -278,6 +337,31 @@ angular.module('becho')
         };
       }   
     };
+
+    $ionicModal.fromTemplateUrl('reseller-list.html', {
+        scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modal = modal;
+        });
+        $scope.openModal = function() {
+            $scope.modal.show();
+        };
+        $scope.closeModal = function() {
+            $scope.modal.hide();
+        };
+          // Cleanup the modal when we're done with it!
+        $scope.$on('$destroy', function() {
+            $scope.modal.remove();
+        });
+          // Execute action on hide modal
+        $scope.$on('modal.hidden', function() {
+            // Execute action
+        });
+          // Execute action on remove modal
+        $scope.$on('modal.removed', function() {
+            // Execute action
+        });
 
 })
 
