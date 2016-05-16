@@ -28,7 +28,7 @@ angular.module('becho')
   // };
 })
 
-.controller('loginCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, userService) {
+.controller('loginCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, $ionicLoading, userService) {
     $scope.loginPageShow = true;
     $scope.signup = false;
     $scope.signUpPage = function() {
@@ -41,8 +41,16 @@ angular.module('becho')
     }
 
     $scope.login = function(user) {
+      $ionicLoading.show({
+            content: 'Loading',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+          });
         userService.login(user)
             .then(function(response) {
+              $ionicLoading.hide();
                 var token = response.data.token;
                 localStorage.setItem('token', token);
                 delete response.data.token;
@@ -52,6 +60,7 @@ angular.module('becho')
                 console.log($rootScope.userDetails);
                 $state.go('tab.dash', {}, {reload: true});
             }, function(err) {
+              $ionicLoading.hide();
               var alertPopup = $ionicPopup.alert({
                 title: 'Login failed!',
                 template: 'Please check your credentials!'
@@ -67,11 +76,20 @@ angular.module('becho')
             user.role.splice(i,1);
           }
         }
+         $ionicLoading.show({
+            content: 'Loading',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+          });
         userService.signUp(user)
           .then(function(response) {
+              $ionicLoading.hide();
               $scope.openModal();
               $scope.user_id = response.id;
           }).catch(function(err) {
+            $ionicLoading.hide();
             var alertPopup = $ionicPopup.alert({
                 title: 'signup failed!',
                 template: 'Please check your Details!'
@@ -128,7 +146,37 @@ angular.module('becho')
   $scope.logout = function() {
     window.localStorage.clear();
     $state.go('login');
-  }
+  };
+
+  $scope.chartConfig = {
+        options: {
+            chart: {
+                type: 'column'
+            }
+        },
+        yAxis: {
+          tickInterval: 5,
+            title: { 
+              text: 'Number of Products'
+            }
+        },
+        xAxis: {
+            type: 'Products',
+            categories: ["Jan", "Feb", "Mar", "Apr", "May"],
+            title: { 
+              text: 'Months'
+            }
+        },
+        series: [{
+          showInLegend: false, 
+            data: [10, 15, 12, 8, 7]
+        }],
+        title: {
+            text: 'Total Sales'
+        },
+
+        loading: false
+    }
 })
 
 .controller('ProductsCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, userService) {
