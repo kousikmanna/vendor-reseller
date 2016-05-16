@@ -20,11 +20,12 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages', 'unde
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    // if(localStorage.getItem('token') !== null) {
-    //   return true;
-    // } else {
-    //   $state.go('login');
-    // }
+    
+    if(localStorage.getItem('token') !== null) {
+      return true;
+    } else {
+      $state.go('login');
+    }
   });
 })
 

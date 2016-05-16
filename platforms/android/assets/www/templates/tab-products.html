@@ -1,42 +1,84 @@
 <ion-view view-title="My Products">
-	<ion-nav-buttons side="right">
-      <button class="button addBtn" ng-click="addProducts()">Add
+	<ion-nav-buttons side="left">
+      <button class="button add-btn button-clear" side="left" ng-click="addProducts()">Add
       </button>
+  </ion-nav-buttons>    
+  <ion-nav-buttons side="right">    
+      <button class="button rm-btn button-clear" side="right" ng-click="pushProduct()">Push</button>
     </ion-nav-buttons>
   	<ion-content>
   		<!-- <h4 class="title">Added products</h4> -->
-    	<div class="list">
-    		<a class="item item-thumbnail-left" href="#">
-      			<img src="img/hp.jpg">
-      			<h2>HP Laptop</h2>
-      			<p>Rs: 25000</p>
-      			<p>Qty: 3</p>
-      			<p>13 may</p>
-    		</a>
+      <div class="col" ng-repeat="product in productList">
+      	<div class="list">
+      		
+      		<div class="item item-thumbnail-left">
+        			<img ng-if = "product.image[0]" src="{{base_url.url}}{{product.image[0]}}" class="product-img">
+              <img ng-if = "!product.image" src="img/samsung-galaxy-tab.jpg" class="product-img">
+        			<h2>{{product.title}}</h2>
+        			<p>Rs:{{product.mrp}}</p>
+        			<p>Qty:{{product.stock}}</p>
+              <p class="item item-checkbox check-box-style-product">
+                 Push
+                <label class="checkbox">
+                  <input type="checkbox" ng-click="pushProductToList(product.id, product.mrp)">
+                </label>
+              </p>
+      		</div>
+  		  </div>  
+      </div>  
 
-    		<a class="item item-thumbnail-left" href="#">
-      			<img src="img/len.jpg">
-      			<h2>Lenove Laptop</h2>
-      			<p>Rs: 20000</p>
-      			<p>Qty: 10</p>
-      			<p>12 may</p>
-    		</a>
-
-    		<a class="item item-thumbnail-left" href="#">
-      			<img src="img/dell.jpg">
-      			<h2>Dell Laptop</h2>
-      			<p>Rs: 30000</p>
-      			<p>Qty: 1</p>
-      			<p>12 may</p>
-    		</a>
-
-    		<a class="item item-thumbnail-left" href="#">
-      			<img src="img/mac.jpg">
-      			<h2>Macbook</h2>
-      			<p>Rs: 59000</p>
-      			<p>Qty: 1</p>
-      			<p>11 may</p>
-    		</a>
-		</div>     
+   <!--  <div class="col" ng-repeat="product in productList">
+           
+            <div class="list">
+          <div class="item item-thumbnail-left">
+            <img src={{product.src}} class="product-img">
+           
+              <h2>{{product.name}}</h2>
+              <p>Price Rs. {{product.price}}</p>
+       
+              <p class="item item-checkbox check-box-style-product">
+                Push
+             <label class="checkbox">
+                <input type="checkbox" ng-checked="pushProductToReseller.indexOf(product.id)" ng-click="pushProductToList(product.id)">
+             
+             </label>
+          </p>
+            
+          </div>
+      </div>
+    </div>   -->
+    
   	</ion-content>
+      <script id="reseller-list.html" type="text/ng-template">
+        <ion-modal-view>
+          <ion-header-bar class="bar bar-header bar-positive">
+              <h1 class="title text-center">Reseller List</h1>
+              
+          </ion-header-bar>
+          <ion-content class="padding">
+              <!-- <div class="row row-center">
+              something
+              
+              </div> -->
+            <!--   <div class="row"> -->
+              <div>
+                <div ng-repeat="reseller in resellerList">
+                  <div class="list">
+                    <div class="item">
+                      <div class="resellerDetail">{{reseller.firstName}}</div>
+                      <div class="item item-checkbox check-box-style-reseller">
+                        <label class="checkbox">
+                          <input type="checkbox" ng-click="selectReseller(reseller.id)">
+                        </label>
+                      </div>
+                    </div>
+                  </div>  
+                </div>  
+             </div>
+              <div>
+                <button class="button button-positive button-balanced push-button" ng-click="pushToSeseller()">Push</button>
+              </div>
+          </ion-content>
+        </ion-modal-view>
+      </script>
 </ion-view>

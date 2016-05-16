@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages'])
+angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages', 'underscore'])
 
 .run(function($ionicPlatform, $state) {
   $ionicPlatform.ready(function() {
@@ -20,11 +20,11 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    if(localStorage.getItem('becho') !== null) {
-      return true;
-    } else {
-      $state.go('login');
-    }
+    // if(localStorage.getItem('token') !== null) {
+    //   return true;
+    // } else {
+    //   $state.go('login');
+    // }
   });
 })
 
@@ -39,8 +39,8 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages'])
         },
         request: function (config) {
            config.headers = config.headers || {};
-           if (window.localStorage && localStorage.getItem('becho')) {
-               var token = localStorage.getItem("becho");
+           if (window.localStorage && localStorage.getItem('token')) {
+               var token = localStorage.getItem("token");
                config.headers.Authorization = 'Bearer ' + token;
            }
            return config;
@@ -119,6 +119,16 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages'])
         views: {
             'tab-products': {
                 templateUrl: 'templates/tab-products.html',
+                controller: 'ProductsCtrl'
+            }
+        }
+    })
+
+    .state('tab.add-product', {
+        url: '/add-product',
+        views: {
+            'tab-products': {
+                templateUrl: 'templates/products-add.html',
                 controller: 'ProductsCtrl'
             }
         }
