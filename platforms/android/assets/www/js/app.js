@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages', 'underscore'])
+angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages', 'underscore', 'highcharts-ng'])
 
 .run(function($ionicPlatform, $state) {
   $ionicPlatform.ready(function() {
@@ -20,11 +20,12 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages', 'unde
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    // if(localStorage.getItem('token') !== null) {
-    //   return true;
-    // } else {
-    //   $state.go('login');
-    // }
+    
+    if(localStorage.getItem('token') !== null) {
+      return true;
+    } else {
+      $state.go('login');
+    }
   });
 })
 

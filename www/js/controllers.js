@@ -176,7 +176,8 @@ angular.module('becho')
         },
         series: [{
           showInLegend: false, 
-            data: [10, 15, 12, 8, 7]
+            data: [10, 15, 12, 8, 7],
+            color: '#24b0d7'
         }],
         title: {
             text: 'Total Sales'

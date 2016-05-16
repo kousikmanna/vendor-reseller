@@ -3,38 +3,52 @@
       	<button class="button button-clear" ng-click="logout()">Logout</button>
     </ion-nav-buttons>
   	<ion-content class="padding">
-    	<h2>Welcome to becho</h2>
-
+    	<div class="row margin-btm-15">
+    		<div class="col-50">
+	    		<div class="common-container">
+	    			<a href="#/resellers">
+		    			<div class="row">
+		    				<div class="col-50">
+		    					<img class="dash-img" src="img/image.png">
+		    				</div>
+		    				<div class="col-50">
+		    					<h2 class="text-center txt-color ">20</h2>
+		    				</div>
+		    			</div>
+		    			<div class="row">
+		    				<div class="col">
+		    					<h5 class="text-center txt-color ">Total Resellers</h5>
+		    				</div>
+		    			</div>
+		    		</a>
+		    	</div>
+	    	</div>
+    		
+    		
+    		<div class="col-50">
+	    		<div class="common-container">
+	    			<a href="#/tab/products">
+		    			<div class="row">
+		    				<div class="col-50">
+		    					<img class="dash-img" src="img/image.png">
+		    				</div>
+		    				<div class="col-50">
+		    					<h2 class="text-center txt-color ">940</h2>
+		    				</div>
+		    			</div>
+		    			<div class="row">
+		    				<div class="col">
+		    					<h5 class="text-center txt-color ">Tatal Products</h5>
+		    				</div>
+		    			</div>
+		    		</a>
+		    	</div>
+	    	</div>
+    		
+    	</div>
     	<div class="row">
     		<div class="col">
-    			<div class="row">
-    				<div class="col">
-    					<img src="img/image.png">
-    				</div>
-    				<div class="col">
-    					<p>20</p>
-    				</div>
-    			</div>
-    			<div class="row">
-    				<div class="col">
-    					<h4 class="text-center">Resellers</h4>
-    				</div>
-    			</div>
-    		</div>
-    		<div class="col">
-    			<div class="row">
-    				<div class="col">
-    					<img src="img/image.png">
-    				</div>
-    				<div class="col">
-    					<p>20</p>
-    				</div>
-    			</div>
-    			<div class="row">
-    				<div class="col">
-    					<h4 class="text-center">Resellers</h4>
-    				</div>
-    			</div>
+    			<highchart id="chart1" config="chartConfig" class="span10"></highchart>
     		</div>
     	</div>   
   	</ion-content>
