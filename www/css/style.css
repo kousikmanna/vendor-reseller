@@ -2,7 +2,7 @@
 
 /*COMMON CLASSES*/
 input {
-  font-size: 16px;
+  font-size: 16px !important;
 }
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -265,4 +265,12 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
 }
 a {
   text-decoration: none;
+}
+.select-btn {
+  background-color: #ff9900;
+  color: #fff;
+}
+.selected-btn {
+  background-color: #669933;
+  color: #fff;
 }
