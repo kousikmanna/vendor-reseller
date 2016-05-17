@@ -189,7 +189,10 @@ angular.module('becho')
             color: '#24b0d7'
         }],
         title: {
-            text: 'Total Sales'
+            text: 'Total Sales',
+            style: {
+              color: '#999'
+            }   
         },
 
         loading: false
@@ -228,7 +231,9 @@ angular.module('becho')
     $scope.resellerIdList=[];
     $scope.pushProductToReseller.productList = productDetail;
 
+    $scope.selectBtn = true;
     $scope.pushProductToList = function(productId, mrp) {
+      $scope.selectBtn = false;
       console.log('productId',productId);
       var checkProduct = _.where($scope.pushProductToReseller.productList, {productId: productId});
       if(checkProduct && checkProduct.length > 0){

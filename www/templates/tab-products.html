@@ -14,13 +14,14 @@
     			<p>Rs:{{product.mrp}}</p>
     			<p>Qty:{{product.stock}}</p>
                 <p>{{product.updatedAt}}</p>
-                <ion-option-button class="button-positive" ng-click="pushProductToList(product.id, product.mrp)">Select</ion-option-button>
+                <ion-option-button ng-class="{'select-btn' : selectBtn, 'selected-btn' : !selectBtn}" ng-click="pushProductToList(product.id, product.mrp)">Select</ion-option-button>
               <!-- <p class="item item-checkbox check-box-style-product">
                  Push
                 <label class="checkbox">
                   <input type="checkbox" ng-click="pushProductToList(product.id, product.mrp)">
                 </label>
               </p> -->
+              <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
         </ion-list> 
     </ion-content>
