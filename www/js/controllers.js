@@ -540,4 +540,12 @@ angular.module('becho')
       }   
     };
 
-});
+})
+
+.controller('resellerDashCtrl', function($scope, $rootScope, userService, $ionicPopup) {
+
+})
+.controller('resellerFeedCtrl', function($scope, $rootScope, userService, $ionicPopup) {
+  
+})
+
