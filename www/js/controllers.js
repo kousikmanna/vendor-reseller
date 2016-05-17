@@ -187,13 +187,17 @@ angular.module('becho')
     }
 })
 
-.controller('ProductsCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, userService) {
+.controller('ProductsCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, $window, userService) {
+  $scope.listCanSwipe = true
   $scope.base_url={}
   $scope.base_url.url = 'https://s3-ap-southeast-1.amazonaws.com/cashinnew/avatars/';
   $scope.product = {};
   userService.fetchProduct()
       .then(function(response){
         if(response != null){
+            for (var i=0; i<= response.length;i++) {
+              response.updatedAt = new Date(response.updatedAt);
+            }
             $scope.productList = response;
             console.log('$scope.productList', $scope.productList);
         }else{
@@ -273,6 +277,7 @@ angular.module('becho')
                 title: 'Product added',
                 template: 'Product added successfully'
               });
+              $state.go('tab.products', {reload: true});
           }).catch(function(err) {
              var alertPopup = $ionicPopup.alert({
                 title: 'Product not added!',
@@ -426,10 +431,43 @@ angular.module('becho')
         $scope.$on('modal.removed', function() {
             // Execute action
         });
+  // $window.location.reload(true);
 
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams) {})
+
+
+.controller('ProductDetailCtrl', function($scope, $stateParams, $ionicSlideBoxDelegate, userService) {
+  $scope.editProduct = false;
+  $scope.edit = false;
+  $scope.savediv = true;
+  userService.getProduct($stateParams.productId)
+      .then(function(response) {
+        console.log(response)
+      }).catch(function(err) {
+        console.log(err);
+      });
+
+      $scope.nextSlide = function() {
+        $ionicSlideBoxDelegate.next();
+      }
+
+    $scope.editProduct = function() {
+      $scope.edit = true;
+      $scope.savediv = false;
+    }
+
+    $scope.save = function(data) {
+      $scope.edit = false;
+      $scope.savediv = true;
+      userService.updateProduct(data)
+        .then(function(response) {
+          console.log(response)
+        }).catch(function(err) {
+          console.log(err);
+        }) 
+    }
+})
 
 .controller('AccountCtrl', function($scope, $rootScope, userService, $ionicPopup) {
   $scope.user = $rootScope.userDetails.data;

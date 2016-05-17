@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages', 'underscore', 'highcharts-ng'])
+angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMessages', 'underscore', 'highcharts-ng'])
 
 .run(function($ionicPlatform, $state) {
   $ionicPlatform.ready(function() {
@@ -135,12 +135,12 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages', 'unde
         }
     })
 
-    .state('tab.chat-detail', {
-        url: '/chats/:chatId',
+    .state('tab.product-detail', {
+        url: '/products/:productId',
             views: {
-                'tab-chats': {
-                templateUrl: 'templates/chat-detail.html',
-                controller: 'ChatDetailCtrl'
+                'tab-products': {
+                templateUrl: 'templates/product-detail.html',
+                controller: 'ProductDetailCtrl'
             }
         }
     });

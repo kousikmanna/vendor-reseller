@@ -108,6 +108,18 @@ angular.module('becho')
 
     }
 
+    this.getProduct = function(productId) {
+        var deffered = $q.defer();
+        $http.get(becho_base_url+'/product/list/mine/'+productId)
+            .success(function(res){
+                deffered.resolve(res);
+            })
+            .error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;
+    }
+
     this.resellerList = function(){
         var deffered = $q.defer();
         $http.get(becho_base_url+'/reseller/list')
