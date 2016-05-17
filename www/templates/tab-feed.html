@@ -1,0 +1,16 @@
+<ion-view cache-view="false" view-title="Feed">
+  	<ion-content class="padding">
+    	<h1>Feed Detail</h1>	
+    	<ion-list>
+            <ion-item class="item-thumbnail-left item-icon-right" type="item-text-wrap" ng-repeat="feed in feedList">
+        	<img ng-if = "feed.image[0]" src="{{base_url.url}}{{feed.image[0]}}" class="product-img">
+            <img ng-if = "!feed.image" src="img/samsung-galaxy-tab.jpg" class="product-img">
+    			  <h2>{{feed.title}}</h2>
+    			  <p>Rs:{{feed.mrp}}</p>
+    			  <p>Qty:{{feed.stock}}</p>
+            <ion-option-button ng-class="{'select-btn' : selectBtn, 'selected-btn' : !selectBtn}">Select</ion-option-button>
+              <!-- <i class="icon ion-chevron-right icon-accessory"></i> -->
+            </ion-item>
+        </ion-list>
+  	</ion-content>
+</ion-view>

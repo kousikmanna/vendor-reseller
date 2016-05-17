@@ -141,7 +141,18 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
                 controller: 'ProductDetailCtrl'
             }
         }
-    });
+    })
+
+     .state('tab.feed', {
+        url: '/feed',
+        views: {
+            'tab-feed': {
+                templateUrl: 'templates/tab-feed.html',
+                controller: 'FeedCtrl'
+            }
+        }
+    })
+
 
   // if none of the above states are matched, use this as the fallback
   // $urlRouterProvider.otherwise('/login');

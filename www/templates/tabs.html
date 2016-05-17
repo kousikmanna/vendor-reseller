@@ -19,6 +19,10 @@ navigation history that also transitions its views in and out.
   <ion-tab title="Account" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/account">
     <ion-nav-view name="tab-account"></ion-nav-view>
   </ion-tab>
-
+  
+   <!-- Feed Tab -->
+  <ion-tab title="Feed" ng-if ="userPermissionAs.role && (userPermissionAs.role[0] == 'reseller' || userPermissionAs.role.length > 1)" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/feed">
+    <ion-nav-view name="tab-feed"></ion-nav-view>
+  </ion-tab>
 
 </ion-tabs>

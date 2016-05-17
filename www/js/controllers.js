@@ -2,6 +2,9 @@ angular.module('becho')
 
 .run(function($rootScope) {
   $rootScope.userDetails= {};
+  if(localStorage.getItem('token') !== null){
+    $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('user'));
+  }
 })
 
 .controller('AppCtrl', function($scope, $state, $ionicPopup, userService) {
@@ -56,7 +59,9 @@ angular.module('becho')
                 delete response.data.token;
                 var user = JSON.stringify(response.data);
                 localStorage.setItem('user', user);
+                var getUser = 
                 $rootScope.userDetails = response;
+                $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('user'));
                 console.log($rootScope.userDetails);
                 $state.go('tab.dash', {}, {reload: true});
             }, function(err) {
@@ -551,4 +556,30 @@ angular.module('becho')
     };
 
 })
+
+.controller('FeedCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, $ionicLoading, userService) {
+    console.log('FeedCtrl');
+    $scope.base_url={}
+    $scope.base_url.url = 'https://s3-ap-southeast-1.amazonaws.com/cashinnew/avatars/';
+    userService.fetchFeed()
+      .then(function(response){
+        console.log('data',response);
+        if(response != null){
+            $scope.feedList = response.vendor[0].productlist;
+            console.log('$scope.feedList', $scope.feedList);
+        }else{
+            var alertPopup = $ionicPopup.alert({
+                title: 'Feed',
+                template: 'Feed not found!'
+            });
+        }
+        
+    }).catch(function(err){
+        var alertPopup = $ionicPopup.alert({
+            title: 'Feed',
+            template: 'Try after some time!'
+        });
+    });
+})
+
 
