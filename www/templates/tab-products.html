@@ -9,12 +9,12 @@
         <ion-list>
             <ion-item class="item-thumbnail-left item-icon-right" type="item-text-wrap" ng-repeat="product in productList" href="#/tab/products/{{product.id}}">
         		<img ng-if = "product.image[0]" src="{{base_url.url}}{{product.image[0]}}" class="product-img">
-                <img ng-if = "!product.image" src="img/samsung-galaxy-tab.jpg" class="product-img">
-    			<h2>{{product.title}}</h2>
-    			<p>Rs:{{product.mrp}}</p>
-    			<p>Qty:{{product.stock}}</p>
-                <p>{{product.updatedAt}}</p>
-                <ion-option-button ng-class="{'select-btn' : selectBtn, 'selected-btn' : !selectBtn}" ng-click="pushProductToList(product.id, product.mrp)">Select</ion-option-button>
+            <img ng-if = "!product.image" src="img/samsung-galaxy-tab.jpg" class="product-img">
+    			  <h2>{{product.title}}</h2>
+    			  <p>Rs:{{product.mrp}}</p>
+    			  <p>Qty:{{product.stock}}</p>
+            <p>{{product.updatedAt}}</p>
+            <ion-option-button ng-class="{'select-btn' : selectBtn, 'selected-btn' : !selectBtn}" ng-click="pushProductToList(product.id, product.mrp)">Select</ion-option-button>
               <!-- <p class="item item-checkbox check-box-style-product">
                  Push
                 <label class="checkbox">

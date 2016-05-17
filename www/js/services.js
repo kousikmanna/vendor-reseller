@@ -122,7 +122,7 @@ angular.module('becho')
 
     this.updateProduct = function(product){
         var deffered = $q.defer();
-        $http.post(becho_base_url+'/product/update', product)
+        $http.put(becho_base_url+'/product/update', product)
             .success(function(res){
                 deffered.resolve(res);
             })

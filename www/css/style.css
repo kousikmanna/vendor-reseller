@@ -274,3 +274,18 @@ a {
   background-color: #669933;
   color: #fff;
 }
+
+.label-for-product-Detail {
+  display: block;
+  color: white;
+  margin: 0 0 4px;
+  font-family: sans-serif;
+  color: rgba(73,155,234,1);
+}
+.input-for-product-Detail {
+  border: #000;
+  padding: 10px;
+  font-size: 1.2em;
+  width: 100%;
+  font-family: sans-serif;
+}

@@ -4,7 +4,7 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="Hp">
+<ion-view view-title="Product Detail">
     <ion-nav-buttons side="right">    
         <button class="button edit-btn button-clear" side="right" ng-click="editProduct()" ng-show="savediv">Edit</button>
         <button class="button edit-btn button-clear" side="right" ng-click="save(product)" ng-show="!savediv">Save</button>
@@ -12,40 +12,40 @@
     <ion-content class="padding">
         <ion-slide-box>
             <ion-slide>
-                <img ng-src="http://code.ionicframework.com/assets/img/app_icon.png" style="width:300px;height:300px;margin:auto;display:block" >
+                <img ng-if = "product.image[0]" ng-src="{{base_url.url}}{{product.image[0]}}" style="width:300px;height:300px;margin:auto;display:block" >
+                <img ng-if = "!product.image" ng-src="img/samsung-galaxy-tab.jpg" style="width:300px;height:300px;margin:auto;display:block">
             </ion-slide>
             <ion-slide>
-                <img ng-src="http://code.ionicframework.com/assets/img/app_icon.png" style="width:300px;height:300px;margin:auto;display:block" >
+                <img ng-if = "product.image[0]" ng-src="{{base_url.url}}{{product.image[0]}}" style="width:300px;height:300px;margin:auto;display:block" >
+                <img ng-if = "!product.image" ng-src="img/samsung-galaxy-tab.jpg" style="width:300px;height:300px;margin:auto;display:block">
             </ion-slide>
             <ion-slide>
-                <img ng-src="http://code.ionicframework.com/assets/img/app_icon.png" style="width:300px;height:300px;margin:auto;display:block" >
+                <img ng-if = "product.image[0]" ng-src="{{base_url.url}}{{product.image[0]}}" style="width:300px;height:300px;margin:auto;display:block" >
+                <img ng-if = "!product.image" ng-src="img/samsung-galaxy-tab.jpg" style="width:300px;height:300px;margin:auto;display:block">
             </ion-slide>
             <ion-slide>
-                <img ng-src="http://code.ionicframework.com/assets/img/app_icon.png" style="width:300px;height:300px;margin:auto;display:block" >
+                <img ng-if = "product.image[0]" ng-src="{{base_url.url}}{{product.image[0]}}" style="width:300px;height:300px;margin:auto;display:block" >
+                <img ng-if = "!product.image" ng-src="img/samsung-galaxy-tab.jpg" style="width:300px;height:300px;margin:auto;display:block">
             </ion-slide>
-            <ion-slide>
+            <!-- <ion-slide>
                 <img ng-src="http://code.ionicframework.com/assets/img/app_icon.png" style="width:300px;height:300px;margin:auto;display:block" >
-            </ion-slide>
-            <ion-slide>
-                <img ng-src="http://code.ionicframework.com/assets/img/app_icon.png" style="width:300px;height:300px;margin:auto;display:block" >
-            </ion-slide>
-            <ion-slide>
-                <img ng-src="http://code.ionicframework.com/assets/img/app_icon.png" style="width:300px;height:300px;margin:auto;display:block" >
-            </ion-slide>
+            </ion-slide> -->
         </ion-slide-box>
         <div class="list list-inset addList">
-          <label class="item item-input border-bottom margin-btm-15">
-            <input type="text" placeholder="Product Title" ng-model="product.title" ng-disabled="savediv">
-          </label>
-          <label class="item item-input border-bottom margin-btm-15">
-            <input type="text" placeholder="Product Mrp"  ng-model="product.mrp" ng-disabled="savediv">
-          </label>
-          <label class="item item-input border-bottom margin-btm-15">
-            <input type="text" placeholder="Stocks" ng-model="product.stock" ng-disabled="savediv">
-          </label>
-          <label class="item item-input border-bottom margin-btm-15">
-            <input type="text" placeholder="Selling price" ng-model="product.sellingPrice" ng-disabled="savediv">
-          </label>
+            <label class = "label-for-product-Detail" for="product-title" class="item item-input border-bottom margin-btm-15">Product Title </label>
+            <input class="input-for-product-Detail" id="product-title" type="text" ng-model="product.title" ng-disabled="savediv">
+          
+            <label class = "label-for-product-Detail" for="product-mrp" class="item item-input border-bottom margin-btm-15">Product Mrp
+            </label>
+            <input class="input-for-product-Detail" id="product-mrp" type="text"  ng-model="product.mrp" ng-disabled="savediv">
+          
+            <label class = "label-for-product-Detail" for="product-stock" class="item item-input border-bottom margin-btm-15">Stocks
+            </label>
+            <input class="input-for-product-Detail" id="product-stock" type="text" ng-model="product.stock" ng-disabled="savediv">
+           
+            <label class = "label-for-product-Detail" for="product-sellingPrice" class="item item-input border-bottom margin-btm-15">Selling price</label>
+            <input class="input-for-product-Detail" id="product-sellingPrice" type="text" ng-model="product.sellingPrice" ng-disabled="savediv">
+          
         </div>   
         <!-- <div ng-animate="'animate'">       
             <form name="editProduct">
