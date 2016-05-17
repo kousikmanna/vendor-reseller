@@ -69,32 +69,41 @@ angular.module('becho')
     }
 
     $scope.signUp = function(user) {
-        user.role = [];
-        user.role.push(user.vendor, user.reseller);
-        for(var i=0; i<user.role.length; i++) {
-          if(user.role[i] === false || user.role[i] === 'undefined') {
-            user.role.splice(i,1);
-          }
+        // user.role = [];
+        // user.role.push(user.vendor, user.reseller);
+        // for(var i=0; i<user.role.length; i++) {
+        //   if(user.role[i] === false || user.role[i] === 'undefined') {
+        //     user.role.splice(i,1);
+        //   }
+        // }
+        var roleList = new Array();
+        if(user.role[0] != undefined && user.role[0] != "NO"){
+          roleList.push(user.role[0]);
         }
-         $ionicLoading.show({
-            content: 'Loading',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-          });
-        userService.signUp(user)
-          .then(function(response) {
-              $ionicLoading.hide();
-              $scope.openModal();
-              $scope.user_id = response.id;
-          }).catch(function(err) {
-            $ionicLoading.hide();
-            var alertPopup = $ionicPopup.alert({
-                title: 'signup failed!',
-                template: 'Please check your Details!'
-            });
-        })
+        if(user.role[1] != undefined && user.role[1] != "NO"){
+          roleList.push(user.role[1]);
+        }
+        user.role = roleList; 
+        $ionicLoading.show({
+          content: 'Loading',
+          animation: 'fade-in',
+          showBackdrop: true,
+          maxWidth: 200,
+          showDelay: 0
+        });
+        console.log('user',user);
+        // userService.signUp(user)
+        //   .then(function(response) {
+        //       $ionicLoading.hide();
+        //       $scope.openModal();
+        //       $scope.user_id = response.id;
+        //   }).catch(function(err) {
+        //     $ionicLoading.hide();
+        //     var alertPopup = $ionicPopup.alert({
+        //         title: 'signup failed!',
+        //         template: 'Please check your Details!'
+        //     });
+        // })
     }
 
     $scope.verifyOtp = function(abc) {
@@ -187,8 +196,7 @@ angular.module('becho')
     }
 })
 
-.controller('ProductsCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, $window, userService) {
-  $scope.listCanSwipe = true
+.controller('ProductsCtrl', function($scope, $rootScope, $ionicHistory, $state, $ionicPopup, $stateParams, $ionicModal, userService) {
   $scope.base_url={}
   $scope.base_url.url = 'https://s3-ap-southeast-1.amazonaws.com/cashinnew/avatars/';
   $scope.product = {};
@@ -247,21 +255,7 @@ angular.module('becho')
       console.log('$scope.resellerIdList', $scope.resellerIdList);
       
     }
-    // $scope.selectReseller = function(resellerId){
-    //   console.log('resellerId', resellerId);
-    //   if($scope.pushProductToReseller &&  !$scope.pushProductToReseller.reseller){
-    //     $scope.pushProductToReseller.reseller=resellerId;
-    //   }else if($scope.pushProductToReseller &&  $scope.pushProductToReseller.reseller && $scope.pushProductToReseller.reseller == resellerId){
-    //       delete $scope.pushProductToReseller.reseller;
-    //   }else if($scope.pushProductToReseller &&  $scope.pushProductToReseller.reseller && $scope.pushProductToReseller.reseller != resellerId){
-    //     var alertPopup = $ionicPopup.alert({
-    //         title: 'Reseller',
-    //         template: 'At a time select one reseller'
-    //     });
-    //   }
-      
-    // }
-
+    
     $scope.addProducts = function(){
        $state.go('tab.add-product');
     }
@@ -277,7 +271,8 @@ angular.module('becho')
                 title: 'Product added',
                 template: 'Product added successfully'
               });
-              $state.go('tab.products', {reload: true});
+              $state.go('tab.products');
+              console.log('$scope.productList', $scope.productList); 
           }).catch(function(err) {
              var alertPopup = $ionicPopup.alert({
                 title: 'Product not added!',
@@ -321,7 +316,7 @@ angular.module('becho')
             template: 'At a time you can select one reseller!'
         });
       }else if($scope.resellerIdList && $scope.resellerIdList.length == 1){
-          $scope.pushProductToReseller.reseller = $scope.resellerIdList[0].id;
+          $scope.pushProductToReseller.reseller = $scope.resellerIdList;
           userService.pushToSeseller($scope.pushProductToReseller)
             .then(function(response) {
               console.log('==response==',response);
@@ -438,8 +433,6 @@ angular.module('becho')
 
 
 .controller('ProductDetailCtrl', function($scope, $stateParams, $ionicSlideBoxDelegate, userService) {
-  $scope.editProduct = false;
-  $scope.edit = false;
   $scope.savediv = true;
   userService.getProduct($stateParams.productId)
       .then(function(response) {
@@ -453,12 +446,10 @@ angular.module('becho')
       }
 
     $scope.editProduct = function() {
-      $scope.edit = true;
       $scope.savediv = false;
     }
 
     $scope.save = function(data) {
-      $scope.edit = false;
       $scope.savediv = true;
       userService.updateProduct(data)
         .then(function(response) {
