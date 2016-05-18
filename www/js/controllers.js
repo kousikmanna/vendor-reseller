@@ -473,7 +473,7 @@ angular.module('becho')
     }
 })
 
-.controller('AccountCtrl', function($scope, $rootScope, userService, $ionicPopup) {
+.controller('AccountCtrl', function($scope, $rootScope, $cordovaCamera, userService, $ionicPopup) {
   $scope.user = $rootScope.userDetails.data;
   if($scope.user == undefined || $scope.user == null){
      $scope.user={};
@@ -492,6 +492,40 @@ angular.module('becho')
           console.log('err-------->',err)
         })
   }
+  //
+
+  // $scope.takePicture = function (options) {
+  //     var options = {
+  //        quality : 75,
+  //        targetWidth: 200,
+  //        targetHeight: 200,
+  //        sourceType: 1
+  //     };
+  //     Camera.getPicture(options).then(function(imageData) {
+  //         console.log('takePicture');
+  //        $scope.picture = imageData;;
+  //     }, function(err) {
+  //        console.log(err);
+  //     });
+    
+  // };
+
+  // $scope.getPicture = function (options) {
+  
+  //     var options = {
+  //        quality : 75,
+  //        targetWidth: 200,
+  //        targetHeight: 200,
+  //        sourceType: 0
+  //     };
+
+  //     Camera.getPicture(options).then(function(imageData) {
+  //        console.log('getPicture');
+  //        $scope.picture = imageData;;
+  //     }, function(err) {
+  //        console.log(err);
+  //     });
+  //  };  
 
    $scope.uploadProfilePic = function (imgElem) {
       var fileInput = $('#fileinput');
