@@ -1,5 +1,4 @@
 angular.module('becho')
-
 .service('userService', function($q, $http) {
     this.login = function(user) {
         var deffered = $q.defer();

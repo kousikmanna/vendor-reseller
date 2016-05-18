@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages', 'underscore', 'highcharts-ng'])
+angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMessages', 'underscore', 'highcharts-ng','ngCordova'])
 
 .run(function($ionicPlatform, $state) {
   $ionicPlatform.ready(function() {
@@ -75,8 +75,6 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages', 'unde
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
 
   .state('login', {
@@ -135,15 +133,26 @@ angular.module('becho', ['ionic', 'ui.router', 'ionMdInput', 'ngMessages', 'unde
         }
     })
 
-    .state('tab.chat-detail', {
-        url: '/chats/:chatId',
+    .state('tab.product-detail', {
+        url: '/products/:productId',
             views: {
-                'tab-chats': {
-                templateUrl: 'templates/chat-detail.html',
-                controller: 'ChatDetailCtrl'
+                'tab-products': {
+                templateUrl: 'templates/product-detail.html',
+                controller: 'ProductDetailCtrl'
             }
         }
-    });
+    })
+
+     .state('tab.feed', {
+        url: '/feed',
+        views: {
+            'tab-feed': {
+                templateUrl: 'templates/tab-feed.html',
+                controller: 'FeedCtrl'
+            }
+        }
+    })
+
 
   // if none of the above states are matched, use this as the fallback
   // $urlRouterProvider.otherwise('/login');

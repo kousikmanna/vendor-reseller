@@ -2,6 +2,9 @@ angular.module('becho')
 
 .run(function($rootScope) {
   $rootScope.userDetails= {};
+  if(localStorage.getItem('token') !== null){
+    $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('user'));
+  }
 })
 
 .controller('AppCtrl', function($scope, $state, $ionicPopup, userService) {
@@ -56,7 +59,9 @@ angular.module('becho')
                 delete response.data.token;
                 var user = JSON.stringify(response.data);
                 localStorage.setItem('user', user);
+                var getUser = 
                 $rootScope.userDetails = response;
+                $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('user'));
                 console.log($rootScope.userDetails);
                 $state.go('tab.dash', {}, {reload: true});
             }, function(err) {
@@ -69,20 +74,23 @@ angular.module('becho')
     }
 
     $scope.signUp = function(user) {
-        user.role = [];
-        user.role.push(user.vendor, user.reseller);
-        for(var i=0; i<user.role.length; i++) {
-          if(user.role[i] === false || user.role[i] === 'undefined') {
-            user.role.splice(i,1);
-          }
+       
+        var roleList = new Array();
+        if(user.role[0] != undefined && user.role[0] != "NO"){
+          roleList.push(user.role[0]);
         }
-         $ionicLoading.show({
-            content: 'Loading',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-          });
+        if(user.role[1] != undefined && user.role[1] != "NO"){
+          roleList.push(user.role[1]);
+        }
+        user.role = roleList; 
+        $ionicLoading.show({
+          content: 'Loading',
+          animation: 'fade-in',
+          showBackdrop: true,
+          maxWidth: 200,
+          showDelay: 0
+        });
+        console.log('user',user);
         userService.signUp(user)
           .then(function(response) {
               $ionicLoading.hide();
@@ -176,23 +184,30 @@ angular.module('becho')
         },
         series: [{
           showInLegend: false, 
-            data: [10, 15, 12, 8, 7]
+            data: [10, 15, 12, 8, 7],
+            color: '#24b0d7'
         }],
         title: {
-            text: 'Total Sales'
+            text: 'Total Sales',
+            style: {
+              color: '#999'
+            }   
         },
 
         loading: false
     }
 })
 
-.controller('ProductsCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, userService) {
+.controller('ProductsCtrl', function($scope, $rootScope, $ionicHistory, $state, $ionicPopup, $stateParams, $ionicModal, userService) {
   $scope.base_url={}
   $scope.base_url.url = 'https://s3-ap-southeast-1.amazonaws.com/cashinnew/avatars/';
   $scope.product = {};
   userService.fetchProduct()
       .then(function(response){
         if(response != null){
+            for (var i=0; i<= response.length;i++) {
+              response.updatedAt = new Date(response.updatedAt);
+            }
             $scope.productList = response;
             console.log('$scope.productList', $scope.productList);
         }else{
@@ -215,7 +230,9 @@ angular.module('becho')
     $scope.resellerIdList=[];
     $scope.pushProductToReseller.productList = productDetail;
 
+    $scope.selectBtn = true;
     $scope.pushProductToList = function(productId, mrp) {
+      $scope.selectBtn = false;
       console.log('productId',productId);
       var checkProduct = _.where($scope.pushProductToReseller.productList, {productId: productId});
       if(checkProduct && checkProduct.length > 0){
@@ -242,21 +259,7 @@ angular.module('becho')
       console.log('$scope.resellerIdList', $scope.resellerIdList);
       
     }
-    // $scope.selectReseller = function(resellerId){
-    //   console.log('resellerId', resellerId);
-    //   if($scope.pushProductToReseller &&  !$scope.pushProductToReseller.reseller){
-    //     $scope.pushProductToReseller.reseller=resellerId;
-    //   }else if($scope.pushProductToReseller &&  $scope.pushProductToReseller.reseller && $scope.pushProductToReseller.reseller == resellerId){
-    //       delete $scope.pushProductToReseller.reseller;
-    //   }else if($scope.pushProductToReseller &&  $scope.pushProductToReseller.reseller && $scope.pushProductToReseller.reseller != resellerId){
-    //     var alertPopup = $ionicPopup.alert({
-    //         title: 'Reseller',
-    //         template: 'At a time select one reseller'
-    //     });
-    //   }
-      
-    // }
-
+    
     $scope.addProducts = function(){
        $state.go('tab.add-product');
     }
@@ -272,6 +275,8 @@ angular.module('becho')
                 title: 'Product added',
                 template: 'Product added successfully'
               });
+              $state.go('tab.products');
+              console.log('$scope.productList', $scope.productList); 
           }).catch(function(err) {
              var alertPopup = $ionicPopup.alert({
                 title: 'Product not added!',
@@ -315,7 +320,7 @@ angular.module('becho')
             template: 'At a time you can select one reseller!'
         });
       }else if($scope.resellerIdList && $scope.resellerIdList.length == 1){
-          $scope.pushProductToReseller.reseller = $scope.resellerIdList[0].id;
+          $scope.pushProductToReseller.reseller = $scope.resellerIdList;
           userService.pushToSeseller($scope.pushProductToReseller)
             .then(function(response) {
               console.log('==response==',response);
@@ -425,12 +430,46 @@ angular.module('becho')
         $scope.$on('modal.removed', function() {
             // Execute action
         });
+  // $window.location.reload(true);
 
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams) {})
 
-.controller('AccountCtrl', function($scope, $rootScope, userService, $ionicPopup) {
+
+.controller('ProductDetailCtrl', function($scope, $stateParams, $ionicSlideBoxDelegate, userService) {
+  $scope.base_url={}
+  $scope.base_url.url = 'https://s3-ap-southeast-1.amazonaws.com/cashinnew/avatars/';
+  $scope.savediv = true;
+  console.log('$stateParams.productId',$stateParams.productId);
+  userService.getProduct($stateParams.productId)
+      .then(function(response) {
+        $scope.product = response;
+        console.log('response',response);
+      }).catch(function(err) {
+        console.log(err);
+      });
+
+      $scope.nextSlide = function() {
+        $ionicSlideBoxDelegate.next();
+      }
+
+    $scope.editProduct = function() {
+      $scope.savediv = false;
+    }
+
+    $scope.save = function(product) {
+      console.log('product',product);
+      $scope.savediv = true;
+      userService.updateProduct(product)
+        .then(function(response) {
+          console.log(response)
+        }).catch(function(err) {
+          console.log(err);
+        }) 
+    }
+})
+
+.controller('AccountCtrl', function($scope, $rootScope, $cordovaCamera, userService, $ionicPopup) {
   $scope.user = $rootScope.userDetails.data;
   if($scope.user == undefined || $scope.user == null){
      $scope.user={};
@@ -449,6 +488,69 @@ angular.module('becho')
           console.log('err-------->',err)
         })
   }
+  //
+
+
+
+  $scope.takePicture = function () {
+      console.log('takePicture1');
+    var options = {
+      quality: 50,
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: Camera.PictureSourceType.CAMERA,
+      allowEdit: true,
+      encodingType: Camera.EncodingType.JPEG,
+      targetWidth: 100,
+      targetHeight: 100,
+      popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: false,
+    correctOrientation:true
+    };
+
+    $cordovaCamera.getPicture(options).then(function(imageData) {
+      console.log('takePicture2');
+      var image = document.getElementById('1234');
+      image.src = "data:image/jpeg;base64," + imageData;
+       console.log('image',image);
+    }, function(err) {
+      console.log('err',err);
+      // error
+    });
+  }  
+
+ 
+  // $scope.takePicture = function (options) {
+  //     var options = {
+  //        quality : 75,
+  //        targetWidth: 200,
+  //        targetHeight: 200,
+  //        sourceType: 1
+  //     };
+  //     Camera.getPicture(options).then(function(imageData) {
+  //         console.log('takePicture');
+  //        $scope.picture = imageData;;
+  //     }, function(err) {
+  //        console.log(err);
+  //     });
+    
+  // };
+
+  // $scope.getPicture = function (options) {
+  
+  //     var options = {
+  //        quality : 75,
+  //        targetWidth: 200,
+  //        targetHeight: 200,
+  //        sourceType: 0
+  //     };
+
+  //     Camera.getPicture(options).then(function(imageData) {
+  //        console.log('getPicture');
+  //        $scope.picture = imageData;;
+  //     }, function(err) {
+  //        console.log(err);
+  //     });
+  //  };  
 
    $scope.uploadProfilePic = function (imgElem) {
       var fileInput = $('#fileinput');
@@ -510,4 +612,31 @@ angular.module('becho')
       }   
     };
 
-});
+})
+
+.controller('FeedCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, $ionicLoading, userService) {
+    console.log('FeedCtrl');
+    $scope.base_url={}
+    $scope.base_url.url = 'https://s3-ap-southeast-1.amazonaws.com/cashinnew/avatars/';
+    userService.fetchFeed()
+      .then(function(response){
+        console.log('data',response);
+        if(response != null){
+            $scope.feedList = response.vendor[0].productlist;
+            console.log('$scope.feedList', $scope.feedList);
+        }else{
+            var alertPopup = $ionicPopup.alert({
+                title: 'Feed',
+                template: 'Feed not found!'
+            });
+        }
+        
+    }).catch(function(err){
+        var alertPopup = $ionicPopup.alert({
+            title: 'Feed',
+            template: 'Try after some time!'
+        });
+    });
+})
+
+

@@ -74,13 +74,7 @@ angular.module('becho')
     }
 
     $scope.signUp = function(user) {
-        // user.role = [];
-        // user.role.push(user.vendor, user.reseller);
-        // for(var i=0; i<user.role.length; i++) {
-        //   if(user.role[i] === false || user.role[i] === 'undefined') {
-        //     user.role.splice(i,1);
-        //   }
-        // }
+       
         var roleList = new Array();
         if(user.role[0] != undefined && user.role[0] != "NO"){
           roleList.push(user.role[0]);
@@ -97,18 +91,18 @@ angular.module('becho')
           showDelay: 0
         });
         console.log('user',user);
-        // userService.signUp(user)
-        //   .then(function(response) {
-        //       $ionicLoading.hide();
-        //       $scope.openModal();
-        //       $scope.user_id = response.id;
-        //   }).catch(function(err) {
-        //     $ionicLoading.hide();
-        //     var alertPopup = $ionicPopup.alert({
-        //         title: 'signup failed!',
-        //         template: 'Please check your Details!'
-        //     });
-        // })
+        userService.signUp(user)
+          .then(function(response) {
+              $ionicLoading.hide();
+              $scope.openModal();
+              $scope.user_id = response.id;
+          }).catch(function(err) {
+            $ionicLoading.hide();
+            var alertPopup = $ionicPopup.alert({
+                title: 'signup failed!',
+                template: 'Please check your Details!'
+            });
+        })
     }
 
     $scope.verifyOtp = function(abc) {
@@ -475,7 +469,7 @@ angular.module('becho')
     }
 })
 
-.controller('AccountCtrl', function($scope, $rootScope, userService, $ionicPopup) {
+.controller('AccountCtrl', function($scope, $rootScope, $cordovaCamera, userService, $ionicPopup) {
   $scope.user = $rootScope.userDetails.data;
   if($scope.user == undefined || $scope.user == null){
      $scope.user={};
@@ -494,6 +488,69 @@ angular.module('becho')
           console.log('err-------->',err)
         })
   }
+  //
+
+
+
+  $scope.takePicture = function () {
+      console.log('takePicture1');
+    var options = {
+      quality: 50,
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: Camera.PictureSourceType.CAMERA,
+      allowEdit: true,
+      encodingType: Camera.EncodingType.JPEG,
+      targetWidth: 100,
+      targetHeight: 100,
+      popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: false,
+    correctOrientation:true
+    };
+
+    $cordovaCamera.getPicture(options).then(function(imageData) {
+      console.log('takePicture2');
+      var image = document.getElementById('1234');
+      image.src = "data:image/jpeg;base64," + imageData;
+       console.log('image',image);
+    }, function(err) {
+      console.log('err',err);
+      // error
+    });
+  }  
+
+ 
+  // $scope.takePicture = function (options) {
+  //     var options = {
+  //        quality : 75,
+  //        targetWidth: 200,
+  //        targetHeight: 200,
+  //        sourceType: 1
+  //     };
+  //     Camera.getPicture(options).then(function(imageData) {
+  //         console.log('takePicture');
+  //        $scope.picture = imageData;;
+  //     }, function(err) {
+  //        console.log(err);
+  //     });
+    
+  // };
+
+  // $scope.getPicture = function (options) {
+  
+  //     var options = {
+  //        quality : 75,
+  //        targetWidth: 200,
+  //        targetHeight: 200,
+  //        sourceType: 0
+  //     };
+
+  //     Camera.getPicture(options).then(function(imageData) {
+  //        console.log('getPicture');
+  //        $scope.picture = imageData;;
+  //     }, function(err) {
+  //        console.log(err);
+  //     });
+  //  };  
 
    $scope.uploadProfilePic = function (imgElem) {
       var fileInput = $('#fileinput');

@@ -1,5 +1,4 @@
 angular.module('becho')
-
 .service('userService', function($q, $http) {
     this.login = function(user) {
         var deffered = $q.defer();
@@ -108,6 +107,30 @@ angular.module('becho')
 
     }
 
+    this.getProduct = function(productId) {
+        var deffered = $q.defer();
+        $http.get(becho_base_url+'/product/get/detail/'+productId)
+            .success(function(res){
+                deffered.resolve(res);
+            })
+            .error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;
+    }
+
+    this.updateProduct = function(product){
+        var deffered = $q.defer();
+        $http.put(becho_base_url+'/product/update', product)
+            .success(function(res){
+                deffered.resolve(res);
+            })
+            .error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;
+    }
+
     this.resellerList = function(){
         var deffered = $q.defer();
         $http.get(becho_base_url+'/reseller/list')
@@ -124,6 +147,20 @@ angular.module('becho')
      this.pushToSeseller = function(products){
         var deffered = $q.defer();
         $http.post(becho_base_url+'/product/push', products)
+            .success(function(res){
+                deffered.resolve(res);
+            })
+            .error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;
+
+    }
+
+    this.fetchFeed = function(){
+        var deffered = $q.defer();
+        console.log('fetchFeed');
+        $http.get(becho_base_url+'/product/myfeed')
             .success(function(res){
                 deffered.resolve(res);
             })

@@ -1,6 +1,9 @@
 /* Empty. Add your own CSS if you like */
 
 /*COMMON CLASSES*/
+input {
+  font-size: 16px !important;
+}
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
     -webkit-appearance: none;
@@ -39,8 +42,8 @@ input[type=number]::-webkit-outer-spin-button {
 	margin-bottom: 15px;
 }
 .border-bottom {
-	border: none;
-    border-bottom: 1px solid #ddd;
+	 border: none !important;
+    border-bottom: 1px solid #ddd !important;
 }
 .upload-img {
 	border: 0;
@@ -252,6 +255,7 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
   border: 1px solid #ddd;
   margin: 0 5px;
   border-radius: 4px;
+  box-shadow: 0px 3px 5px #ddd;
 }
 .dash-img {
   width: 100%;
@@ -261,4 +265,27 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
 }
 a {
   text-decoration: none;
+}
+.select-btn {
+  background-color: #ff9900;
+  color: #fff;
+}
+.selected-btn {
+  background-color: #669933;
+  color: #fff;
+}
+
+.label-for-product-Detail {
+  display: block;
+  color: white;
+  margin: 0 0 4px;
+  font-family: sans-serif;
+  color: rgba(73,155,234,1);
+}
+.input-for-product-Detail {
+  border: #000;
+  padding: 10px;
+  font-size: 1.2em;
+  width: 100%;
+  font-family: sans-serif;
 }
