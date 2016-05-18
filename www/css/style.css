@@ -278,14 +278,24 @@ a {
 .label-for-product-Detail {
   display: block;
   color: white;
-  margin: 0 0 4px;
+  font-size: 13px;
+  /*margin: 0 0 4px;*/
   font-family: sans-serif;
   color: rgba(73,155,234,1);
 }
 .input-for-product-Detail {
   border: #000;
-  padding: 10px;
+  /*padding: 10px;*/
   font-size: 1.2em;
   width: 100%;
   font-family: sans-serif;
+}
+.slider-slides {
+  width: 100% !important;
+}
+.slide-box-img {
+    width:200px;
+    height:auto;
+    margin:auto;
+    display:block;
 }

@@ -13,7 +13,8 @@
     			  <h2>{{product.title}}</h2>
     			  <p>Rs:{{product.mrp}}</p>
     			  <p>Qty:{{product.stock}}</p>
-            <p>{{product.updatedAt}}</p>
+            <p>{{getdayMonth(product.createdAt)}}</p>
+            <!-- <p>{{createdAt}}</p> -->
             <ion-option-button ng-class="{'select-btn' : selectBtn, 'selected-btn' : !selectBtn}" ng-click="pushProductToList(product.id, product.mrp)">Select</ion-option-button>
               <!-- <p class="item item-checkbox check-box-style-product">
                  Push
