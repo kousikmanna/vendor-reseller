@@ -77,7 +77,7 @@ angular.module('becho')
          
       }, function (err) {
           console.log('err',err);
-      })
+      });
     }      
 
    $scope.uploadProfilePic = function (imgElem) {
