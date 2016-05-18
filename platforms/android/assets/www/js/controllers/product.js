@@ -48,9 +48,16 @@ angular.module('becho')
 
       $cordovaCamera.getPicture(options).then(function(imageData) {
         console.log('takePicture2');
-        var image = document.getElementById('1234');
-        image.src = "data:image/jpeg;base64," + imageData;
-         console.log('image',image);
+        var elem = document.createElement("img");
+        elem.setAttribute("src", "data:image/jpeg;base64," + imageData);
+        elem.setAttribute("height", "60");
+        elem.setAttribute("width", "80");
+        elem.setAttribute("alt", "");
+        document.getElementById("img-list").appendChild(elem);
+
+        // var image = document.getElementById('1234');
+        // image.src = "data:image/jpeg;base64," + imageData;
+        //  console.log('image',image);
       }, function(err) {
         console.log('err',err);
         // error
@@ -71,8 +78,14 @@ angular.module('becho')
       };
 
           $cordovaCamera.getPicture(options).then(function (imageData) {
-              var image = document.getElementById('5678');
-              image.src = "data:image/jpeg;base64," + imageData;
+              var elem = document.createElement("img");
+              elem.setAttribute("src", "data:image/jpeg;base64," + imageData);
+              elem.setAttribute("height", "60");
+              elem.setAttribute("width", "80");
+              elem.setAttribute("alt", "");
+              document.getElementById("img-list").appendChild(elem);
+              // var image = document.getElementById('5678');
+              // image.src = "data:image/jpeg;base64," + imageData;
               // $scope.imgURI = "data:image/jpeg;base64," + imageData;
           }, function (err) {
               // An error occured. Show a message to the user
