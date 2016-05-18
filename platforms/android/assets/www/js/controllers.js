@@ -74,7 +74,6 @@ angular.module('becho')
     }
 
     $scope.signUp = function(user) {
-       
         var roleList = new Array();
         if(user.role[0] != undefined && user.role[0] != "NO"){
           roleList.push(user.role[0]);
@@ -202,12 +201,17 @@ angular.module('becho')
   $scope.base_url={}
   $scope.base_url.url = 'https://s3-ap-southeast-1.amazonaws.com/cashinnew/avatars/';
   $scope.product = {};
+  $scope.getdayMonth  = function(date) {
+    createdAt = new Date(date);
+    createddate = createdAt.getDate();
+    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    createdMonth = monthNames[createdAt.getMonth()];
+    console.log(createdAt);
+    return createddate + ' ' + createdMonth;
+  }
   userService.fetchProduct()
       .then(function(response){
         if(response != null){
-            for (var i=0; i<= response.length;i++) {
-              response.updatedAt = new Date(response.updatedAt);
-            }
             $scope.productList = response;
             console.log('$scope.productList', $scope.productList);
         }else{
@@ -490,35 +494,6 @@ angular.module('becho')
   }
   //
 
-
-
-  $scope.takePicture = function () {
-      console.log('takePicture1');
-    var options = {
-      quality: 50,
-      destinationType: Camera.DestinationType.DATA_URL,
-      sourceType: Camera.PictureSourceType.CAMERA,
-      allowEdit: true,
-      encodingType: Camera.EncodingType.JPEG,
-      targetWidth: 100,
-      targetHeight: 100,
-      popoverOptions: CameraPopoverOptions,
-      saveToPhotoAlbum: false,
-    correctOrientation:true
-    };
-
-    $cordovaCamera.getPicture(options).then(function(imageData) {
-      console.log('takePicture2');
-      var image = document.getElementById('1234');
-      image.src = "data:image/jpeg;base64," + imageData;
-       console.log('image',image);
-    }, function(err) {
-      console.log('err',err);
-      // error
-    });
-  }  
-
- 
   // $scope.takePicture = function (options) {
   //     var options = {
   //        quality : 75,

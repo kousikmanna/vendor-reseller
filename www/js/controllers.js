@@ -494,35 +494,6 @@ angular.module('becho')
   }
   //
 
-
-
-  $scope.takePicture = function () {
-      console.log('takePicture1');
-    var options = {
-      quality: 50,
-      destinationType: Camera.DestinationType.DATA_URL,
-      sourceType: Camera.PictureSourceType.CAMERA,
-      allowEdit: true,
-      encodingType: Camera.EncodingType.JPEG,
-      targetWidth: 100,
-      targetHeight: 100,
-      popoverOptions: CameraPopoverOptions,
-      saveToPhotoAlbum: false,
-    correctOrientation:true
-    };
-
-    $cordovaCamera.getPicture(options).then(function(imageData) {
-      console.log('takePicture2');
-      var image = document.getElementById('1234');
-      image.src = "data:image/jpeg;base64," + imageData;
-       console.log('image',image);
-    }, function(err) {
-      console.log('err',err);
-      // error
-    });
-  }  
-
- 
   // $scope.takePicture = function (options) {
   //     var options = {
   //        quality : 75,
