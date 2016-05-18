@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMessages', 'underscore', 'highcharts-ng','ngCordova'])
 
-.run(function($ionicPlatform, $state) {
+.run(function($ionicPlatform, $state, $rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,6 +19,11 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
+    }
+
+    $rootScope.userDetails= {};
+      if(localStorage.getItem('token') !== null){
+        $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('user'));
     }
     
     if(localStorage.getItem('token') !== null) {
@@ -80,7 +85,7 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
-    controller: 'loginCtrl'
+    controller: 'UserCtrl'
   })
 
   //setup an abstract state for the tabs directive
