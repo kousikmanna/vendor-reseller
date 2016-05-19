@@ -1,6 +1,6 @@
 angular.module('becho')
 
-.controller('AccountCtrl', function($scope, $rootScope, userService, $ionicPopup) {
+.controller('AccountCtrl', function($scope, $rootScope, $cordovaCamera, userService, $ionicPopup) {
   $scope.user = $rootScope.userDetails.data;
   if($scope.user == undefined || $scope.user == null){
      $scope.user={};
@@ -19,6 +19,66 @@ angular.module('becho')
           console.log('err-------->',err)
         })
   }
+
+  $scope.takePicture = function () {
+      console.log('takePicture1');
+      var options = {
+        quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.CAMERA,
+        allowEdit: true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 100,
+        targetHeight: 100,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false,
+      correctOrientation:true
+      };
+
+      $cordovaCamera.getPicture(options).then(function(imageData) {
+        $scope.uploadingProfilePic = true;
+        var dataObj = {data: imageData};
+        userService.uploadProfilePic(dataObj).then(function(imageUrl){
+          user.profilePic = imageUrl;
+          $scope.uploadingProfilePic = false;
+          }).catch(function(err){   
+            $scope.error = err.message; 
+            $scope.uploadingProfilePic = false;    
+          });
+      }, function(err) {
+        console.log('err',err);
+        // error
+      });
+    } 
+
+    $scope.choosePicture = function () {
+        var options = {
+          quality: 75,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+          allowEdit: true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 300,
+          targetHeight: 300,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false
+      };
+
+      $cordovaCamera.getPicture(options).then(function (imageData) {
+        var dataObj = {data: imageData};
+        $scope.uploadingProfilePic = true;
+        userService.uploadProfilePic(dataObj).then(function(imageUrl){
+          user.profilePic = imageUrl;
+          $scope.uploadingProfilePic = false;  
+        }).catch(function(err){   
+         $scope.uploadingProfilePic = false;  
+          $scope.error = err.message;     
+        });
+         
+      }, function (err) {
+          console.log('err',err);
+      });
+    }      
 
    $scope.uploadProfilePic = function (imgElem) {
       var fileInput = $('#fileinput');

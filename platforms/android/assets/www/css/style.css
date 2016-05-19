@@ -302,6 +302,12 @@ a {
     margin:auto;
     display:block;
 }
+.profileImgLogo{
+  display:inline-block !important;
+  vertical-align: top;
+  width: 60px !important;
+  height: 60px !important;
+}
 .header-bg-color {
     border-color: #24b0d7;
     background-color: #24b0d7;

@@ -4,7 +4,18 @@ angular.module('becho')
   $scope.base_url={}
   $scope.base_url.url = 'https://s3-ap-southeast-1.amazonaws.com/cashinnew/avatars/';
   $scope.product = {};
+<<<<<<< HEAD
 
+=======
+  $scope.product.image = new Array;
+  $scope.getdayMonth  = function(date) {
+    createdAt = new Date(date);
+    createddate = createdAt.getDate();
+    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    createdMonth = monthNames[createdAt.getMonth()];
+    return createddate + ' ' + createdMonth;
+  }
+>>>>>>> 374dbda833c285b090ca28a940f40257c03bd812
   userService.fetchProduct()
       .then(function(response){
         if(response != null){
@@ -58,13 +69,27 @@ angular.module('becho')
 
       $cordovaCamera.getPicture(options).then(function(imageData) {
         console.log('takePicture2');
-        var elem = document.createElement("img");
-        elem.setAttribute("src", "data:image/jpeg;base64," + imageData);
-        elem.setAttribute("height", "60");
-        elem.setAttribute("width", "80");
-        elem.setAttribute("alt", "");
-        document.getElementById("img-list").appendChild(elem);
-
+        var dataObj = {data: imageData};
+        userService.uploadProductPic(dataObj).then(function(imageUrl){
+            // console.log('imageUrl',imageUrl);
+            // $scope.uploadingProductPic = false;
+             // console.log('$scope.user1',$scope.user);
+            // $scope.product.productPic = imageUrl;
+          var elem = document.createElement("img");
+          elem.setAttribute("src", imageUrl);
+          elem.setAttribute("height", "60");
+          elem.setAttribute("width", "80");
+          elem.setAttribute("alt", "");
+          document.getElementById("img-list").appendChild(elem);
+          var imageName = imageUrl.split("/").pop(-1);
+          // $scope.product.image = new Array;
+          $scope.product.image.push(imageName);
+          console.log('$scope.product',$scope.product);
+            // console.log('$scope.user2',$scope.user);
+          }).catch(function(err){   
+            // $scope.uploadingProductPic = false;  
+            $scope.error = err.message;     
+          });
         // var image = document.getElementById('1234');
         // image.src = "data:image/jpeg;base64," + imageData;
         //  console.log('image',image);
@@ -88,12 +113,32 @@ angular.module('becho')
       };
 
           $cordovaCamera.getPicture(options).then(function (imageData) {
+            var dataObj = {data: imageData};
+              userService.uploadProductPic(dataObj).then(function(imageUrl){
+                // console.log('imageUrl',imageUrl);
+                // $scope.uploadingProductPic = false;
+                 // console.log('$scope.user1',$scope.user);
+                // $scope.product.productPic = imageUrl;
               var elem = document.createElement("img");
-              elem.setAttribute("src", "data:image/jpeg;base64," + imageData);
+              elem.setAttribute("src", imageUrl);
               elem.setAttribute("height", "60");
               elem.setAttribute("width", "80");
               elem.setAttribute("alt", "");
               document.getElementById("img-list").appendChild(elem);
+              var imageName = imageUrl.split("/").pop(-1);
+              $scope.product.image.push(imageName);
+              console.log('$scope.product',$scope.product);
+                // console.log('$scope.user2',$scope.user);
+              }).catch(function(err){   
+                // $scope.uploadingProductPic = false;  
+                $scope.error = err.message;     
+              });
+              // var elem = document.createElement("img");
+              // elem.setAttribute("src", "data:image/jpeg;base64," + imageData);
+              // elem.setAttribute("height", "60");
+              // elem.setAttribute("width", "80");
+              // elem.setAttribute("alt", "");
+              // document.getElementById("img-list").appendChild(elem);
               // var image = document.getElementById('5678');
               // image.src = "data:image/jpeg;base64," + imageData;
               // $scope.imgURI = "data:image/jpeg;base64," + imageData;
