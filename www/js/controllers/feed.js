@@ -1,5 +1,4 @@
 angular.module('becho')
-
 .controller('FeedCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, $ionicLoading, userService) {
     console.log('FeedCtrl');
     // $scope.vendorDetail = [];
@@ -33,7 +32,8 @@ angular.module('becho')
         // }
         if(response != null){
             $scope.feedList = response.vendor[0].productlist;
-            console.log('$scope.feedList', $scope.feedList);
+            // $scope.feedList = response.vendor;
+            console.log('feedList', JSON.stringify(response));
         }else{
             var alertPopup = $ionicPopup.alert({
                 title: 'Feed',
