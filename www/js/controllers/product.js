@@ -4,18 +4,7 @@ angular.module('becho')
   $scope.base_url={}
   $scope.base_url.url = 'https://s3-ap-southeast-1.amazonaws.com/cashinnew/avatars/';
   $scope.product = {};
-<<<<<<< HEAD
-
-=======
   $scope.product.image = new Array;
-  $scope.getdayMonth  = function(date) {
-    createdAt = new Date(date);
-    createddate = createdAt.getDate();
-    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    createdMonth = monthNames[createdAt.getMonth()];
-    return createddate + ' ' + createdMonth;
-  }
->>>>>>> 374dbda833c285b090ca28a940f40257c03bd812
   userService.fetchProduct()
       .then(function(response){
         if(response != null){

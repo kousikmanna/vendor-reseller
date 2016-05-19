@@ -21,16 +21,16 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
       StatusBar.styleDefault();
     }
 
-    // $rootScope.userDetails= {};
-    //   if(localStorage.getItem('token') !== null){
-    //     $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('user'));
-    // }
+    $rootScope.userDetails= {};
+      if(localStorage.getItem('becho_token') !== null){
+        $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('becho_user'));
+    }
     
-    // if(localStorage.getItem('token') !== null) {
-    //   return true;
-    // } else {
-    //   $state.go('login');
-    // }
+    if(localStorage.getItem('becho_token') !== null) {
+      return true;
+    } else {
+      $state.go('login');
+    }
   });
 })
 
@@ -45,8 +45,8 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
         },
         request: function (config) {
            config.headers = config.headers || {};
-           if (window.localStorage && localStorage.getItem('token')) {
-               var token = localStorage.getItem("token");
+           if (window.localStorage && localStorage.getItem('becho_token')) {
+               var token = localStorage.getItem("becho_token");
                config.headers.Authorization = 'Bearer ' + token;
            }
            return config;
@@ -58,26 +58,6 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
   $httpProvider.interceptors.push('httpinterceptor');
   $ionicConfigProvider.tabs.position('bottom');
 
-  // var resolve= {
-  //       auth: (['$q', '$state', function($q, $state) {
-  //           var defer = $q.defer();
-  //           console.log('in');
-  //           if(localStorage.getItem('becho')) {
-  //               console.log('hello');
-  //               defer.resolve({
-  //                   user:  function() {
-  //                        return true;
-  //                   }
-  //               });
-  //           } else {
-  //               console.log('else');
-  //               defer.reject();
-  //               $state.go('login');
-  //           }
-  //           return defer.promise;
-  //       }])
-  // };
-
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   $stateProvider
@@ -88,16 +68,20 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
     controller: 'UserCtrl'
   })
 
+  .state('signup', {
+    url: '/signup',
+    templateUrl: 'templates/signup.html',
+    controller: 'UserCtrl'
+  })
+
   //setup an abstract state for the tabs directive
     .state('tab', {
         url: '/tab',
         abstract: true,
         templateUrl: 'templates/tabs.html',
-        // resolve: resolve
     })
 
-    // Each tab has its own nav history stack:  
-
+    // Each tab has its own nav history stack: 
     .state('tab.account', {
         url: '/account',
         views: {
@@ -160,7 +144,7 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
-  // $urlRouterProvider.otherwise('/tab/dash');
+  // $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/tab/dash');
 
 });

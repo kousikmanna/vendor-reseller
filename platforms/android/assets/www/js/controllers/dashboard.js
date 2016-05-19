@@ -13,7 +13,7 @@ angular.module('becho')
 
     $scope.userType = {};
 
-    var userRole = localStorage.getItem('user');
+    var userRole = localStorage.getItem('becho_user');
     if(userRole.vendor){
         $scope.userType.role = 'Vendor';
     }else if(userRole.reseller){

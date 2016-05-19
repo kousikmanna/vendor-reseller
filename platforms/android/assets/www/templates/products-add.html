@@ -1,29 +1,25 @@
 
 
-<ion-view view-title="Add Products">
+<ion-view cache-view="false" view-title="Add Products">
 	<ion-content>
 		<ion-list>
 		  <form ng-submit="productAdd(product)">
 		  	<div class = "list list-inset addList">
-		  		<div class = "row zero-rgt-adding zero-lft-padding">
-		  			<div class = "col-67 common-class">
+		  		<!-- <div class = "row zero-rgt-adding zero-lft-padding">
+		  			<div class = "col common-class">
 			  			<div class="row responsive-sm zero-rgt-padding zero-lft-padding zero-btm-padding">
-			  				<div class = "col-90">
+			  				<div class = "col col-90">
 			  					<ion-md-input type="text" class="border-bottom" ng-model="product.title" placeholder="Title" highlight-color="calm"></ion-md-input>
 			  				</div>
-			  				<div class = "col-90">
+			  				<div class = "col col-90">
 			  					<ion-md-input type="text" class="border-bottom" ng-model="product.mrp" placeholder="MRP" highlight-color="calm"></ion-md-input>	
 			  				</div>
 			  			</div>
-		  			</div>
-		  			<div class = "col-33 common-class">
-		  				<!-- <input type="file" hidden="">
-		  				<div class="upload-img item item-thumbnail-right" href="javascript:void(0)" ng-click="UploadImage()">
-		  					<img src="img/image.png">
-		  				</div> -->
+		  			</div> -->
+		  			<!-- <div class = "col-33 common-class">
 		  				<div class="fileUpload clearfix upload-img">
 					         <label for="fileinput" class=" label1 clearfix">
-					         <!-- <span class ="change">Change</span> -->
+					         <span class ="change">Change</span>
                                 <img id="image" class="profileImg" ng-if="!product.productPic" src="img/image.png" alt="" accept="image/x-png, image/gif, image/jpeg">
                      			<img id="image" class="profileImg" ng-if="product.productPic" id="image" ng-src="{{product.productPic}}" alt="" >
                      			<img ng-if="uploadingProductPic" class="reject-load"  src="img/animated.gif">
@@ -31,8 +27,17 @@
                             </label>
                             
 						</div>
-		  			</div>
-		  			
+		  			</div> -->		  			
+		  		<!-- </div> -->
+		  		<div class="row">
+		  			<div class = "col col-90">
+	  					<ion-md-input type="text" class="border-bottom" ng-model="product.title" placeholder="Title" highlight-color="calm"></ion-md-input>
+	  				</div>
+		  		</div>
+		  		<div class="row">
+		  			<div class = "col col-90 margin-btm-15">
+	  					<ion-md-input type="text" class="border-bottom" ng-model="product.mrp" placeholder="MRP" highlight-color="calm"></ion-md-input>	
+	  				</div>
 		  		</div>
 		  		<div class = "row">
 		  			<div class="col-90 margin-btm-15">
@@ -45,13 +50,36 @@
 			  			<ion-md-input type="text" class="border-bottom" ng-model="product.sellingPrice" placeholder="Selling Price" highlight-color="calm" ></ion-md-input>
 			  		</div>
 			  	</div>
+			  	<div class="row">
+					<div class="col">
+						<p class="desc-text text-center zero-padding">Add Photos</p>
+					</div>
+				</div>
+				<div class="row zero-padding" style="padding: 0 80px !important;">
+					<div class="col zero-padding">
+						<div class="row zero-padding">
+							<div class="col col-50 zero-padding">
+								<a href="javascript:void(0)" ng-click = "choosePicture()">
+									<div class="icon-holder">
+										<img src="img/gallery.png">
+									</div>
+									<p class="text-center desc-text zero-padding">Gallery</p>
+								</a>
+							</div>
+							<div class="col col-50 zero-padding">
+								<a href="javascript:void(0)" ng-click = "takePicture()">
+									<div class="icon-holder">
+										<img src="img/camera_icon.png">
+									</div>
+									<p class="text-center desc-text zero-padding">Camera</p>
+								</a>
+							</div>
+						</div>
+					</div>				
+				</div>
 		  	</div>
 		  	<!--  -->
-			<div class="row">
-				<a class = "button" ng-click = "takePicture()">Take Picture</a>
-				<a class = "button" ng-click = "choosePicture()">Open Gallery</a>
-				
-			</div>
+			
 			<div class="row" id ="img-list">
 			</div>
 			<!--  -->

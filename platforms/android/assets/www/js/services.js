@@ -172,6 +172,7 @@ angular.module('becho')
     }
 
     this.getVendor = function(id) {
+        console.log('val------>', becho_base_url+'/vendor/detail/'+id);
         var deffered = $q.defer();
         $http.get(becho_base_url+'/vendor/detail/'+id)
             .success(function(res) {
