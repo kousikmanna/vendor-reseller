@@ -12,7 +12,7 @@
                 <img ng-if = "!product.image" src="img/samsung-galaxy-tab.jpg" class="product-img">
       			<h2>{{product.title}}</h2>
       			<p>Rs:{{product.mrp}}</p>
-      			<p>Qty:{{product.stock}}</p>
+      			<p>Qty:{{product.stock}}</p>   
                 <p>{{getdayMonth(product.createdAt)}}</p>
                 <p ng-if="productId[product.id] == product.id" class="selected-cont text-right"><img src="img/tick.png"></p>
                 <i class="icon ion-chevron-right icon-accessory"></i>

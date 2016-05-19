@@ -1,4 +1,4 @@
-<ion-view view-title="Sign In" class="loginBg" hide-nav-bar="true" >
+<ion-view view-title="Sign In" cache-view="false" class="loginBg" hide-nav-bar="true" >
 	<div class="bg-transparent"></div>
   	<ion-content class="padding">
 	  	<div class="row row-height responsive-sm padding remvoeBP">
@@ -9,7 +9,7 @@
 
 					<div class="login-form-container">
 						<form ng-submit="login(user)" name="loginForm" novalidate="">
-							<div class="list list-inset removePM" ng-hide="!loginPageShow">
+							<div class="list list-inset removePM">
 							  	<ion-md-input type="email" name="email" ng-model="user.email" placeholder="My email address is" highlight-color="calm" ng-class="{ 'has-errors' : loginForm.email.$invalid && loginForm.email.$dirty, 'no-errors' : loginForm.email.$valid && loginForm.email.$dirty}" ng-required="true"></ion-md-input>
 							  	<div class="error-container" ng-show="loginForm.email.$error && loginForm.email.$dirty" ng-messages="loginForm.email.$error">
 					              	<div ng-messages-include="error-list.html"></div>
@@ -21,57 +21,14 @@
 					            </div>
 
 							</div>
-							<div class="loginButton" ng-hide="!loginPageShow"><button class="button ion-unlocked button-block button-balanced" type="submit" > Login </button>  </div>
+							<div class="loginButton"><button class="button ion-unlocked button-block button-balanced" type="submit" > Login </button>  </div>
 						</form>
 					</div>
 
-					<div class="signup-form-container">
-						<form ng-submit="signUp(user);" name="signupForm" novalidate="">
-							<div class="list list-inset removePM" ng-hide="!signup">
-							  	<ion-md-input type="email" name="email" ng-model="user.email" placeholder="My email address is" highlight-color="calm" ng-class="{ 'has-errors' : signupForm.email.$invalid && signupForm.email.$dirty, 'no-errors' : signupForm.email.$valid && signupForm.email.$dirty}" ng-required="true"></ion-md-input>
-							  	<div class="error-container" ng-show="signupForm.email.$error && signupForm.email.$dirty" ng-messages="signupForm.email.$error">
-					              	<div ng-messages-include="error-list.html"></div>
-					            </div>
-
-							  	<ion-md-input type="password" name="password" ng-model="user.password" placeholder="My password is" highlight-color="calm" ng-class="{ 'has-errors' : signupForm.password.$invalid && signupForm.password.$dirty, 'no-errors' : signupForm.password.$valid && signupForm.password.$dirty}" ng-minlength="8" ng-required="true"></ion-md-input>
-							  	<div class="error-container" ng-show="signupForm.password.$error && signupForm.password.$dirty" ng-messages="signupForm.password.$error">
-					              	<div ng-messages-include="error-list.html"></div>
-					            </div>
-
-							  	<ion-md-input type="number" name="mobile" ng-model="user.mobile" placeholder="My Phone number is" ng-class="{ 'has-errors' : signupForm.mobile.$invalid && signupForm.mobile.$dirty, 'no-errors' : signupForm.mobile.$valid && signupForm.mobile.$dirty}" highlight-color="calm" ng-minlength="10" ng-maxlength="10" ng-required="true"></ion-md-input>
-							  	<div class="error-container" ng-show="signupForm.mobile.$error && signupForm.mobile.$dirty" ng-messages="signupForm.mobile.$error">
-					              	<div ng-messages-include="error-list.html"></div>
-					            </div>
-
-							  	<div class="row">
-									<div class="col">
-										<div class="item item-checkbox check-box-style">
-										   Vendor
-										   <label class="checkbox">
-										   <!-- <input ng-model="user.vendor" ng-init="user.vendor=false" ng-true-value="'vendor'" type="checkbox"> -->
-										   <input ng-model="user.role[0]" ng-true-value="'vendor'" ng-false-value="'NO'" type="checkbox">
-										   </label>
-										</div>
-									</div>	
-									<div class="col">
-										<div class="item item-checkbox check-box-style">
-										   Reseller
-										   <label class="checkbox">
-										  <!--  <input ng-model="user.reseller" ng-init="user.reseller=false" ng-true-value="'reseller'" type="checkbox"> -->
-										  <input ng-model="user.role[1]" ng-true-value="'reseller'" ng-false-value="'NO'" type="checkbox">
-										   </label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="signUpButton" ng-hide="!signup"><button type="submit" class="button ion-person button-block button-balanced" type="submit" > Sign Up </button>  </div>
-						</form>
-					</div>
-
-					<div class="sign-up-txt text-center" ng-hide="!loginPageShow">
+					<div class="sign-up-txt text-center">
 				  		Don't have an account? <a ng-click="signUpPage()" href="javascript:void(0)">Sign Up</a>
 				  	</div>
-				  	<div class="sign-up-txt text-center" ng-hide="!signup">
+				  	<div class="sign-up-txt text-center">
 				  		<a ng-click="LoginPage()" href="javascript:void(0)">Login</a>
 				  	</div>
 			  	</div>

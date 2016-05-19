@@ -1,22 +1,40 @@
 angular.module('becho')
 
-.controller('DashCtrl', function($scope, $state) {
-  $scope.logout = function() {
-    window.localStorage.clear();
-    $state.go('login');
-  };
-  $scope.userType = {}
+.controller('DashCtrl', function($scope, $state, userService) {
+    $scope.logout = function() {
+        window.localStorage.clear();
+        $state.go('login');
+    };
+
+    userService.resellerList()
+        .then(function(response) {
+            $scope.totalResellers = response.length;
+        });
+
+    $scope.userType = {};
+
     var userRole = localStorage.getItem('user');
     if(userRole.vendor){
-      $scope.userType.role = 'Vendor';
+        $scope.userType.role = 'Vendor';
     }else if(userRole.reseller){
-      $scope.userType.role = 'Reseller';
+        $scope.userType.role = 'Reseller';
     }
+
     console.log('userRole',$scope.userType);
-  $scope.chartConfig = {
+    $scope.chartConfig = {
         options: {
             chart: {
-                type: 'column'
+                type: 'column',
+                borderWidth: 1,
+                borderColor: '#d9d9d9',
+                marginBottom: 40,
+                marginTop: 30,
+                marginLeft: 55,
+                marginRight: 15,
+                width: null,
+                height: null,
+                plotBorderWidth: 1,
+                plotBorderColor: '#d9d9d9'
             }
         },
         yAxis: {

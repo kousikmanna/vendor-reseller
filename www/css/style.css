@@ -45,6 +45,12 @@ input[type=number]::-webkit-outer-spin-button {
 	 border: none !important;
     border-bottom: 1px solid #ddd !important;
 }
+.ng-hide {
+  opacity: 0;
+}
+.ng-show {
+  opacity: 1;
+}
 .upload-img {
 	border: 0;
 	margin-top: 20px;
@@ -312,10 +318,10 @@ a {
   color: #fff !important;
 }
 .selected-cont {
-  width: 25px;
-  position: absolute;
+    width: 25px;
+    position: absolute;
     top: 43px;
-    left: 300px;
+    right: 15%;
 }
 .selected-cont img {
   width: 100%;
@@ -325,4 +331,15 @@ a {
 }
 .card.card-product {
   margin: 5px;
+}
+.profile-img-cont {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  background: transparent;
+}
+.profile-img-cont img {
+  width: 72px;
 }

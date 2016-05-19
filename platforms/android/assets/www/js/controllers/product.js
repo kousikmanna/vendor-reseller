@@ -9,7 +9,6 @@ angular.module('becho')
     createddate = createdAt.getDate();
     var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     createdMonth = monthNames[createdAt.getMonth()];
-    console.log(createdAt);
     return createddate + ' ' + createdMonth;
   }
   userService.fetchProduct()
@@ -99,7 +98,9 @@ angular.module('becho')
     $scope.pushProductToReseller.productList = productDetail;
 
     $scope.selectBtn = true;
-    $scope.pushProductToList = function(productId, mrp) {
+    $scope.pushProductToList = function(productId, mrp, index) {
+    	console.log(index);
+    	$scope.productId = [];
       $scope.selectBtn = false;
       console.log('productId',productId);
       var checkProduct = _.where($scope.pushProductToReseller.productList, {productId: productId});
@@ -111,6 +112,11 @@ angular.module('becho')
           productObj.mrp = mrp;
           $scope.pushProductToReseller.productList.push(productObj);
       }
+      var len = $scope.pushProductToReseller.productList.length
+      for (var i=0; i<len; i++) {
+      	$scope.productId[$scope.pushProductToReseller.productList[i].productId] = $scope.pushProductToReseller.productList[i].productId;
+      }
+      console.log($scope.productId);
       console.log('$scope.pushProductToReseller.productList',$scope.pushProductToReseller.productList);
       
     }
@@ -273,6 +279,10 @@ angular.module('becho')
         };
       }   
     };
+
+    // $scope.onHold = function() {
+    // 	console.log('Hold');
+    // }
 
     $ionicModal.fromTemplateUrl('reseller-list.html', {
         scope: $scope,
