@@ -1,9 +1,12 @@
 angular.module('becho')
 
-.controller('ProductsCtrl', function($scope, $rootScope, $cordovaCamera, $ionicHistory, $state, $ionicPopup, $stateParams, $ionicModal, userService) {
+.controller('ProductsCtrl', function($scope, $rootScope, $cordovaCamera, $ionicHistory, $filter, $state, $ionicPopup, $stateParams, $ionicModal, userService) {
   $scope.base_url={}
   $scope.base_url.url = 'https://s3-ap-southeast-1.amazonaws.com/cashinnew/avatars/';
   $scope.product = {};
+<<<<<<< HEAD
+
+=======
   $scope.product.image = new Array;
   $scope.getdayMonth  = function(date) {
     createdAt = new Date(date);
@@ -12,6 +15,7 @@ angular.module('becho')
     createdMonth = monthNames[createdAt.getMonth()];
     return createddate + ' ' + createdMonth;
   }
+>>>>>>> 374dbda833c285b090ca28a940f40257c03bd812
   userService.fetchProduct()
       .then(function(response){
         if(response != null){
@@ -30,6 +34,23 @@ angular.module('becho')
             template: 'Try after some time!'
         });
     });
+
+  $scope.getdayMonth  = function(date) {
+    createdAt = new Date(date);
+    createddate = createdAt.getDate();
+    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    createdMonth = monthNames[createdAt.getMonth()];
+    return createddate + ' ' + createdMonth;
+  };
+
+  $scope.lastestDate = function(data) {
+    var date = [];
+    for(var i=0; i<data.length; i++) {
+      date.push(new Date(data[i].createdAt));
+    }
+    console.log('date---------->',date);
+    return date;
+  };
 
     $scope.takePicture = function () {
       console.log('takePicture1');

@@ -171,4 +171,27 @@ angular.module('becho')
 
     }
 
+    this.getVendor = function(id) {
+        console.log('val------>', becho_base_url+'/vendor/detail/'+id);
+        var deffered = $q.defer();
+        $http.get(becho_base_url+'/vendor/detail/'+id)
+            .success(function(res) {
+                deffered.resolve(res);
+            }).error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;
+    }
+
+    this.getReseller = function(id) {
+        var deffered = $q.defer();
+        $http.get(becho_base_url+'/reseller/detail/'+id)
+            .success(function(res) {
+                deffered.resolve(res);
+            }).error(function(err) {
+                deffered.reject(err);
+            })
+        return deffered.promise;
+    }
+
 });

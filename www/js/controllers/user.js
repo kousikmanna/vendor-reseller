@@ -1,15 +1,11 @@
 angular.module('becho')
 
-.controller('UserCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, $ionicLoading, userService) {
-    $scope.loginPageShow = true;
-    $scope.signup = false;
+.controller('UserCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, $ionicLoading, $timeout, userService) {
     $scope.signUpPage = function() {
-        $scope.signup = true;
-        $scope.loginPageShow = false;
+        $state.go('signup');
     }
     $scope.LoginPage = function() {
-        $scope.signup = false;
-        $scope.loginPageShow = true;
+        $state.go('login');
     }
 
     $scope.login = function(user) {
@@ -24,14 +20,13 @@ angular.module('becho')
             .then(function(response) {
               $ionicLoading.hide();
                 var token = response.data.token;
-                localStorage.setItem('token', token);
+                localStorage.setItem('becho_token', token);
                 delete response.data.token;
                 var user = JSON.stringify(response.data);
-                localStorage.setItem('user', user);
-                var getUser = 
+                localStorage.setItem('becho_user', user); 
                 $rootScope.userDetails = response;
-                $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('user'));
-                console.log($rootScope.userDetails);
+                $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('becho_user'));
+                console.log('userdeta---------->',$rootScope.userPermissionAs);
                 $state.go('tab.dash', {}, {reload: true});
             }, function(err) {
               $ionicLoading.hide();
@@ -77,10 +72,10 @@ angular.module('becho')
         userService.verifyotp(abc, $scope.user_id)
             .then(function(response) {
                 var token = response.data[0].token;
-                localStorage.setItem('token', token);
+                localStorage.setItem('becho_token', token);
                 delete response.data[0].token;
                 var user = JSON.stringify(response.data[0]);
-                localStorage.setItem('user', user);
+                localStorage.setItem('becho_user', user);
                 console.log('data----->', response);
                 $scope.closeModal();
                 $state.go('tab.account', {}, {reload: true});

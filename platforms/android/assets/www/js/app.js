@@ -21,16 +21,16 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
       StatusBar.styleDefault();
     }
 
-    $rootScope.userDetails= {};
-      if(localStorage.getItem('token') !== null){
-        $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('user'));
-    }
+    // $rootScope.userDetails= {};
+    //   if(localStorage.getItem('token') !== null){
+    //     $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('user'));
+    // }
     
-    if(localStorage.getItem('token') !== null) {
-      return true;
-    } else {
-      $state.go('login');
-    }
+    // if(localStorage.getItem('token') !== null) {
+    //   return true;
+    // } else {
+    //   $state.go('login');
+    // }
   });
 })
 
@@ -160,7 +160,7 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
 
 
   // if none of the above states are matched, use this as the fallback
-  // $urlRouterProvider.otherwise('/login');
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/login');
+  // $urlRouterProvider.otherwise('/tab/dash');
 
 });
