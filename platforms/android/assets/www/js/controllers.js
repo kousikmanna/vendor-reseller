@@ -1,5 +1,9 @@
 angular.module('becho')
 
+.run(function($rootScope) {
+  $rootScope.userDetails= {};
+})
+
 .controller('AppCtrl', function($scope, $state, $ionicPopup, userService) {
   // $scope.username = AuthService.username();
 
@@ -24,7 +28,7 @@ angular.module('becho')
   // };
 })
 
-.controller('loginCtrl', function($scope, $state, $location, $stateParams, $ionicPopup, $ionicModal, userService) {
+.controller('loginCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, userService) {
     $scope.loginPageShow = true;
     $scope.signup = false;
     $scope.signUpPage = function() {
@@ -39,8 +43,10 @@ angular.module('becho')
     $scope.login = function(user) {
         userService.login(user)
             .then(function(response) {
-                console.log('response-------->',response);
                 localStorage.setItem('becho', response.data.token);
+                localStorage.setItem('becho_user', {email: user.email, password: user.password});
+                $rootScope.userDetails = response;
+                console.log($rootScope.userDetails);
                 $state.go('tab.dash', {}, {reload: true});
             }, function(err) {
               var alertPopup = $ionicPopup.alert({
@@ -122,7 +128,9 @@ angular.module('becho')
 
 .controller('ChatDetailCtrl', function($scope, $stateParams) {})
 
-.controller('AccountCtrl', function($scope, userService, $ionicPopup) {
+.controller('AccountCtrl', function($scope, $rootScope, userService, $ionicPopup) {
+  $scope.user = $rootScope.userDetails.data;
+  console.log($scope.user);
   $scope.updateaccount = function(user) {
       userService.updateAccount(user)
         .then(function(response) {
@@ -130,7 +138,8 @@ angular.module('becho')
             title: 'Account settings',
             template: 'Your details has been updated successfully.'
           });
-          console.log('response-------->',response);
+          $scope.user = response.vendor[0];
+          console.log(response);
         }).catch(function(err) {
           console.log('err-------->',err)
         })

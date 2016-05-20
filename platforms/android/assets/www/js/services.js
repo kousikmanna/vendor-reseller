@@ -39,7 +39,6 @@ angular.module('becho')
     }
 
     this.updateAccount = function(user) {
-        console.log(user);
         var deffered = $q.defer();
         $http.post(becho_base_url+'/user/account', user)
             .success(function(response) {
