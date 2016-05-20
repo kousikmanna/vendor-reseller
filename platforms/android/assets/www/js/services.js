@@ -1,5 +1,6 @@
 angular.module('becho')
 .service('userService', function($q, $http) {
+    var becho_base_url = 'http://54.179.135.79:1337';
     this.login = function(user) {
         var deffered = $q.defer();
         console.log('user',user);

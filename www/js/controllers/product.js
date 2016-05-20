@@ -1,6 +1,6 @@
 angular.module('becho')
 
-.controller('ProductsCtrl', function($scope, $rootScope, $cordovaCamera, $ionicHistory, $filter, $state, $ionicPopup, $stateParams, $ionicModal, userService) {
+.controller('ProductsCtrl', function($scope, $rootScope, $ionicHistory, $filter, $state, $ionicPopup, $stateParams, $ionicModal, userService) {
   $scope.base_url={}
   $scope.base_url.url = 'https://s3-ap-southeast-1.amazonaws.com/cashinnew/avatars/';
   $scope.product = {};
@@ -41,100 +41,100 @@ angular.module('becho')
     return date;
   };
 
-    $scope.takePicture = function () {
-      console.log('takePicture1');
-      var options = {
-        quality: 50,
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.CAMERA,
-        allowEdit: true,
-        encodingType: Camera.EncodingType.JPEG,
-        targetWidth: 100,
-        targetHeight: 100,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false,
-      correctOrientation:true
-      };
+    // $scope.takePicture = function () {
+    //   console.log('takePicture1');
+    //   var options = {
+    //     quality: 50,
+    //     destinationType: Camera.DestinationType.DATA_URL,
+    //     sourceType: Camera.PictureSourceType.CAMERA,
+    //     allowEdit: true,
+    //     encodingType: Camera.EncodingType.JPEG,
+    //     targetWidth: 100,
+    //     targetHeight: 100,
+    //     popoverOptions: CameraPopoverOptions,
+    //     saveToPhotoAlbum: false,
+    //   correctOrientation:true
+    //   };
 
-      $cordovaCamera.getPicture(options).then(function(imageData) {
-        console.log('takePicture2');
-        var dataObj = {data: imageData};
-        userService.uploadProductPic(dataObj).then(function(imageUrl){
-            // console.log('imageUrl',imageUrl);
-            // $scope.uploadingProductPic = false;
-             // console.log('$scope.user1',$scope.user);
-            // $scope.product.productPic = imageUrl;
-          var elem = document.createElement("img");
-          elem.setAttribute("src", imageUrl);
-          elem.setAttribute("height", "60");
-          elem.setAttribute("width", "80");
-          elem.setAttribute("alt", "");
-          document.getElementById("img-list").appendChild(elem);
-          var imageName = imageUrl.split("/").pop(-1);
-          // $scope.product.image = new Array;
-          $scope.product.image.push(imageName);
-          console.log('$scope.product',$scope.product);
-            // console.log('$scope.user2',$scope.user);
-          }).catch(function(err){   
-            // $scope.uploadingProductPic = false;  
-            $scope.error = err.message;     
-          });
-        // var image = document.getElementById('1234');
-        // image.src = "data:image/jpeg;base64," + imageData;
-        //  console.log('image',image);
-      }, function(err) {
-        console.log('err',err);
-        // error
-      });
-    } 
+    //   $cordovaCamera.getPicture(options).then(function(imageData) {
+    //     console.log('takePicture2');
+    //     var dataObj = {data: imageData};
+    //     userService.uploadProductPic(dataObj).then(function(imageUrl){
+    //         // console.log('imageUrl',imageUrl);
+    //         // $scope.uploadingProductPic = false;
+    //          // console.log('$scope.user1',$scope.user);
+    //         // $scope.product.productPic = imageUrl;
+    //       var elem = document.createElement("img");
+    //       elem.setAttribute("src", imageUrl);
+    //       elem.setAttribute("height", "60");
+    //       elem.setAttribute("width", "80");
+    //       elem.setAttribute("alt", "");
+    //       document.getElementById("img-list").appendChild(elem);
+    //       var imageName = imageUrl.split("/").pop(-1);
+    //       // $scope.product.image = new Array;
+    //       $scope.product.image.push(imageName);
+    //       console.log('$scope.product',$scope.product);
+    //         // console.log('$scope.user2',$scope.user);
+    //       }).catch(function(err){   
+    //         // $scope.uploadingProductPic = false;  
+    //         $scope.error = err.message;     
+    //       });
+    //     // var image = document.getElementById('1234');
+    //     // image.src = "data:image/jpeg;base64," + imageData;
+    //     //  console.log('image',image);
+    //   }, function(err) {
+    //     console.log('err',err);
+    //     // error
+    //   });
+    // } 
 
-    $scope.choosePicture = function () {
-        var options = {
-          quality: 75,
-          destinationType: Camera.DestinationType.DATA_URL,
-          sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-          allowEdit: true,
-          encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 300,
-          targetHeight: 300,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false
-      };
+    // $scope.choosePicture = function () {
+    //     var options = {
+    //       quality: 75,
+    //       destinationType: Camera.DestinationType.DATA_URL,
+    //       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+    //       allowEdit: true,
+    //       encodingType: Camera.EncodingType.JPEG,
+    //       targetWidth: 300,
+    //       targetHeight: 300,
+    //       popoverOptions: CameraPopoverOptions,
+    //       saveToPhotoAlbum: false
+    //   };
 
-          $cordovaCamera.getPicture(options).then(function (imageData) {
-            var dataObj = {data: imageData};
-              userService.uploadProductPic(dataObj).then(function(imageUrl){
-                // console.log('imageUrl',imageUrl);
-                // $scope.uploadingProductPic = false;
-                 // console.log('$scope.user1',$scope.user);
-                // $scope.product.productPic = imageUrl;
-              var elem = document.createElement("img");
-              elem.setAttribute("src", imageUrl);
-              elem.setAttribute("height", "60");
-              elem.setAttribute("width", "80");
-              elem.setAttribute("alt", "");
-              document.getElementById("img-list").appendChild(elem);
-              var imageName = imageUrl.split("/").pop(-1);
-              $scope.product.image.push(imageName);
-              console.log('$scope.product',$scope.product);
-                // console.log('$scope.user2',$scope.user);
-              }).catch(function(err){   
-                // $scope.uploadingProductPic = false;  
-                $scope.error = err.message;     
-              });
-              // var elem = document.createElement("img");
-              // elem.setAttribute("src", "data:image/jpeg;base64," + imageData);
-              // elem.setAttribute("height", "60");
-              // elem.setAttribute("width", "80");
-              // elem.setAttribute("alt", "");
-              // document.getElementById("img-list").appendChild(elem);
-              // var image = document.getElementById('5678');
-              // image.src = "data:image/jpeg;base64," + imageData;
-              // $scope.imgURI = "data:image/jpeg;base64," + imageData;
-          }, function (err) {
-              // An error occured. Show a message to the user
-          });
-      }
+    //       $cordovaCamera.getPicture(options).then(function (imageData) {
+    //         var dataObj = {data: imageData};
+    //           userService.uploadProductPic(dataObj).then(function(imageUrl){
+    //             // console.log('imageUrl',imageUrl);
+    //             // $scope.uploadingProductPic = false;
+    //              // console.log('$scope.user1',$scope.user);
+    //             // $scope.product.productPic = imageUrl;
+    //           var elem = document.createElement("img");
+    //           elem.setAttribute("src", imageUrl);
+    //           elem.setAttribute("height", "60");
+    //           elem.setAttribute("width", "80");
+    //           elem.setAttribute("alt", "");
+    //           document.getElementById("img-list").appendChild(elem);
+    //           var imageName = imageUrl.split("/").pop(-1);
+    //           $scope.product.image.push(imageName);
+    //           console.log('$scope.product',$scope.product);
+    //             // console.log('$scope.user2',$scope.user);
+    //           }).catch(function(err){   
+    //             // $scope.uploadingProductPic = false;  
+    //             $scope.error = err.message;     
+    //           });
+    //           // var elem = document.createElement("img");
+    //           // elem.setAttribute("src", "data:image/jpeg;base64," + imageData);
+    //           // elem.setAttribute("height", "60");
+    //           // elem.setAttribute("width", "80");
+    //           // elem.setAttribute("alt", "");
+    //           // document.getElementById("img-list").appendChild(elem);
+    //           // var image = document.getElementById('5678');
+    //           // image.src = "data:image/jpeg;base64," + imageData;
+    //           // $scope.imgURI = "data:image/jpeg;base64," + imageData;
+    //       }, function (err) {
+    //           // An error occured. Show a message to the user
+    //       });
+    //   }
 
     // $scope.productCheckList = new Array();
     $scope.pushProductToReseller={};

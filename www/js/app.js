@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMessages', 'underscore', 'highcharts-ng','ngCordova'])
+angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMessages', 'underscore', 'highcharts-ng'])
 
 .run(function($ionicPlatform, $state, $rootScope) {
   $ionicPlatform.ready(function() {
@@ -22,6 +22,7 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
     }
 
     $rootScope.userDetails= {};
+
       if(localStorage.getItem('becho_token') !== null){
         $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('becho_user'));
     }
