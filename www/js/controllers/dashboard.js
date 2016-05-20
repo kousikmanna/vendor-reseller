@@ -6,10 +6,10 @@ angular.module('becho')
     $state.go('login');
   };
   $scope.userType = {}
-    var userRole = localStorage.getItem('user');
-    if(userRole.vendor){
+    var userRole = JSON.parse(localStorage.getItem('becho_user'));
+    if(userRole.role[0]=='vendor'){
       $scope.userType.role = 'Vendor';
-    }else if(userRole.reseller){
+    }else if(userRole.role[0]=='reseller'){
       $scope.userType.role = 'Reseller';
     }
     console.log('userRole',$scope.userType);

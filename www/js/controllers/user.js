@@ -24,13 +24,13 @@ angular.module('becho')
             .then(function(response) {
               $ionicLoading.hide();
                 var token = response.data.token;
-                localStorage.setItem('token', token);
+                localStorage.setItem('becho_token', token);
                 delete response.data.token;
                 var user = JSON.stringify(response.data);
-                localStorage.setItem('user', user);
+                localStorage.setItem('becho_user', user);
                 var getUser = 
                 $rootScope.userDetails = response;
-                $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('user'));
+                $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('becho_user'));
                 console.log($rootScope.userDetails);
                 $state.go('tab.dash', {}, {reload: true});
             }, function(err) {
@@ -77,10 +77,10 @@ angular.module('becho')
         userService.verifyotp(abc, $scope.user_id)
             .then(function(response) {
                 var token = response.data[0].token;
-                localStorage.setItem('token', token);
+                localStorage.setItem('becho_token', token);
                 delete response.data[0].token;
                 var user = JSON.stringify(response.data[0]);
-                localStorage.setItem('user', user);
+                localStorage.setItem('becho_user', user);
                 console.log('data----->', response);
                 $scope.closeModal();
                 $state.go('tab.account', {}, {reload: true});
