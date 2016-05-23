@@ -1,24 +1,23 @@
 <ion-view cache-view="false" cache-view="false" view-title="Feed">
-  	<ion-content class="padding">
-    	<h1>Feed Detail</h1>
+  	<ion-content class="">
         <div class="row margin-btm-15">
-            <div class="col-50" ng-repeat="vendor in vendorDetail">
+            <div class="col-50" ng-repeat="vendor in vendorDetails">
               <div class="common-container">
-                <a href="#/resellers">
+                <a href="#/feeds/{{vendor.id}}">
                   <div class="row">
                     <div class="col-50">
                         <div class="profile-img-cont">
                             <img id="image" ng-if="!vendor.vendor.profilePic" src="img/image.png" alt="" accept="image/x-png, image/gif, image/jpeg">
-                            <img ng-if="vendor.vendor.profilePic" ng-src="{{vendor.vendor.profilePic}}">
+                            <img ng-if="vendor.vendor.profilePic" ng-src="{{vendor.profilePic}}">
                         </div>
                     </div>
                     <div class="col-50">
-                      <h3 class="text-center txt-color" style="margin: 20px;">{{vendorDetail.length}}</h3>
+                      <h3 class="text-center txt-color" style="margin: 20px;">{{vendor.productlist.length}}</h3>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col">
-                      <h5 class="text-center txt-color" style="margin: 0;">{{vendor.vendor.firstName + ' ' + vendor.vendor.lastName}}</h5>
+                      <h5 class="text-center txt-color" style="margin: 0;">{{vendor.name}}</h5>
                     </div>
                   </div>
                 </a>
@@ -46,16 +45,5 @@
               </div>
             </div>        
         </div>	
-    	<!-- <ion-list>
-            <ion-item class="item-thumbnail-left item-icon-right" type="item-text-wrap" ng-repeat="feed in feedList">
-        	<img ng-if = "feed.image[0]" src="{{base_url.url}}{{feed.image[0]}}" class="product-img">
-            <img ng-if = "!feed.image" src="img/samsung-galaxy-tab.jpg" class="product-img">
-    			  <h2>{{feed.title}}</h2>
-    			  <p>Rs:{{feed.mrp}}</p>
-    			  <p>Qty:{{feed.stock}}</p>
-            <ion-option-button ng-class="{'select-btn' : selectBtn, 'selected-btn' : !selectBtn}">Select</ion-option-button>
-              <i class="icon ion-chevron-right icon-accessory"></i> -->
-            <!-- </ion-item>
-        </ion-list> -->
   	</ion-content>
 </ion-view>

@@ -1,7 +1,10 @@
 <ion-view view-title="Dashboard">
-	<ion-nav-buttons side="right">    
-      	<button class="button button-clear" ng-click="logout()">Logout</button>
-    </ion-nav-buttons>
+	<ion-nav-buttons side="left">
+    	<button class="button button-icon button-clear ion-navicon" ng-click="openMenu()"></button>
+  	</ion-nav-buttons>
+  	<ion-nav-buttons side="right">
+    	<button class="button button-icon button-clear ion-person-stalker"></button>
+  	</ion-nav-buttons>
   	<ion-content class="">
     	<div class="row margin-btm-15">
     		<div class="col-50">
@@ -23,9 +26,7 @@
 		    			</div>
 		    		</a>
 		    	</div>
-	    	</div>
-    		
-    		
+	    	</div>    		
     		<div class="col-50">
 	    		<div class="common-container">
 	    			<a href="#/tab/products">

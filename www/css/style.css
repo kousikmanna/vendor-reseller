@@ -32,6 +32,9 @@ input[type=number]::-webkit-outer-spin-button {
 .zero-lft-padding {
 	padding-left: 0px;
 }
+.txt-clolr {
+  color: #999;
+}
 .zero-rgt-padding {
 	padding-right: 0px;
 }
