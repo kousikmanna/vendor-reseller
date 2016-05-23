@@ -25,6 +25,8 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
       if(localStorage.getItem('becho_token') !== null){
         $rootScope.userPermissionAs = JSON.parse(localStorage.getItem('becho_user'));
     }
+
+    $rootScope.productDetails= [];
     
     if(localStorage.getItem('becho_token') !== null) {
       return true;
@@ -74,6 +76,12 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
     controller: 'UserCtrl'
   })
 
+  .state('profile', {
+        url: '/profile',
+        templateUrl: 'templates/profile.html',
+        controller: 'AccountCtrl'
+    })
+
   //setup an abstract state for the tabs directive
     .state('tab', {
         url: '/tab',
@@ -82,15 +90,15 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
     })
 
     // Each tab has its own nav history stack: 
-    .state('tab.account', {
-        url: '/account',
-        views: {
-            'tab-account': {
-                templateUrl: 'templates/tab-account.html',
-                controller: 'AccountCtrl'
-            }
-        }
-    })
+    // .state('tab.account', {
+    //     url: '/account',
+    //     views: {
+    //         'tab-account': {
+    //             templateUrl: 'templates/tab-account.html',
+    //             controller: 'AccountCtrl'
+    //         }
+    //     }
+    // })
 
     .state('tab.dash', {
         url: '/dash',
@@ -141,6 +149,22 @@ angular.module('becho', ['ionic', 'ui.router', 'ngAnimate', 'ionMdInput', 'ngMes
             }
         }
     })
+
+    //  .state('tab.feed.detail', {
+    //     url: '/feeds/:Id',
+    //         views: {
+    //             'tab-products': {
+    //             templateUrl: 'templates/tab-feed-detail.html',
+    //             controller: 'FeedCtrl'
+    //         }
+    //     }
+    // });
+
+     .state('feed.detail', {
+        url: '/feeds/:id',
+        templateUrl: 'templates/tab-feed-detail.html',
+        controller: 'FeedCtrl'
+    });
 
 
   // if none of the above states are matched, use this as the fallback

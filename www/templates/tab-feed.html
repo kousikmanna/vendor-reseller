@@ -1,24 +1,24 @@
 <ion-view cache-view="false" cache-view="false" view-title="Feed">
-  	<ion-content class="padding">
-    	<h1>Feed Detail</h1>
+  	<ion-content class="">
+    	<!-- <h1>Feed Detail</h1> -->
         <div class="row margin-btm-15">
-            <div class="col-50" ng-repeat="vendor in vendorDetail">
+            <div class="col-50" ng-repeat="vendor in vendorDetails">
               <div class="common-container">
-                <a href="#/resellers">
+                <a href="#/feeds/{{vendor.id}}">
                   <div class="row">
                     <div class="col-50">
                         <div class="profile-img-cont">
                             <img id="image" ng-if="!vendor.vendor.profilePic" src="img/image.png" alt="" accept="image/x-png, image/gif, image/jpeg">
-                            <img ng-if="vendor.vendor.profilePic" ng-src="{{vendor.vendor.profilePic}}">
+                            <img ng-if="vendor.vendor.profilePic" ng-src="{{vendor.profilePic}}">
                         </div>
                     </div>
                     <div class="col-50">
-                      <h3 class="text-center txt-color" style="margin: 20px;">{{vendorDetail.length}}</h3>
+                      <h3 class="text-center txt-color" style="margin: 20px;">{{vendor.productlist.length}}</h3>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col">
-                      <h5 class="text-center txt-color" style="margin: 0;">{{vendor.vendor.firstName + ' ' + vendor.vendor.lastName}}</h5>
+                      <h5 class="text-center txt-color" style="margin: 0;">{{vendor.name}}</h5>
                     </div>
                   </div>
                 </a>

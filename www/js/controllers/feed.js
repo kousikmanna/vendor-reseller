@@ -1,39 +1,20 @@
 angular.module('becho')
-.controller('FeedCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicModal, $ionicLoading, userService) {
+.controller('FeedCtrl', function($scope, $rootScope, $stateParams, $state, $ionicPopup, $filter, $ionicModal, $ionicLoading, userService) {
     console.log('FeedCtrl');
-    // $scope.vendorDetail = [];
-    // $scope.resellerDetail = [];
     $scope.base_url={}
     $scope.base_url.url = 'https://s3-ap-southeast-1.amazonaws.com/cashinnew/avatars/';
     userService.fetchFeed()
       .then(function(response){
         console.log('data',response);
-        // if(response.vendor.length > 0) {
-        //     $.each(response.vendor, function(key, val) {
-        //         userService.getVendor(val.id)
-        //             .then(function(response) {
-        //                 $scope.vendorDetail.push(response);
-        //                 console.log($scope.vendorDetail);
-        //             }).catch(function(err) {
-        //                 return true;
-        //             })
-        //     }); 
-        // }
-        // if(response.reseller.length > 0) {
-        //     $.each(response.reseller, function(key, val) {
-        //         userService.getReseller()
-        //             .then(function(response) {
-        //                 $scope.resellerDetail.push(response);
-        //                 console.log($scope.resellerDetail);
-        //             }).catch(function(err) {
-        //                 return true;
-        //         })
-        //     });
-        // }
         if(response != null){
-            $scope.feedList = response.vendor[0].productlist;
-            // $scope.feedList = response.vendor;
-            console.log('feedList', JSON.stringify(response));
+            if(response.vendor) {
+                $scope.vendorDetails = response.vendor;
+            };
+            if(response.reseller) {
+                $scope.resellerDetails = response.reseller;
+            }
+            $rootScope.productDetails.push(response);
+            console.log('feedList', $scope.vendorDetails);
         }else{
             var alertPopup = $ionicPopup.alert({
                 title: 'Feed',
@@ -47,4 +28,27 @@ angular.module('becho')
             template: 'Try after some time!'
         });
     });
+
+
+    // $scope.search = function() {
+    //     var url = 'data/people.json';
+    //     $http.get(url).success(httpSuccess).error(function() {
+    //         alert('Unable to get back informations :( ');
+    //     });
+    // }
+
+    // httpSuccess = function(response) {
+    //     $scope.products = response;
+    // }
+
+    function getById(arr, id) {
+        console.log(arr)
+        // for (var d = 0, len = arr.length; d < len; d += 1) {
+        //     if (arr[d].id === id) {
+        //         return arr[d];  
+        //     }
+        // }
+    }
+    // $scope.search();
+    $scope.products = getById($rootScope.productDetails ,$stateParams.id);             
 })

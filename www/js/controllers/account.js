@@ -1,6 +1,16 @@
 angular.module('becho')
 
-.controller('AccountCtrl', function($scope, $rootScope, $cordovaCamera, userService, $ionicPopup) {
+.controller('AccountCtrl', function($scope, $rootScope, $cordovaCamera, userService, $ionicSideMenuDelegate, $ionicPopup) {
+
+  $scope.openMenu = function () {
+      $ionicSideMenuDelegate.toggleLeft();
+  }
+
+  $scope.logout = function() {
+      window.localStorage.clear();
+      $state.go('login');
+  };
+
   $scope.user = $rootScope.userDetails.data;
   if($scope.user == undefined || $scope.user == null){
      $scope.user={};

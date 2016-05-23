@@ -1,10 +1,10 @@
 angular.module('becho')
 
-.controller('DashCtrl', function($scope, $state, userService) {
-    $scope.logout = function() {
-        window.localStorage.clear();
-        $state.go('login');
-    };
+.controller('DashCtrl', function($scope, $state, $ionicSideMenuDelegate, userService) {
+
+    $scope.openMenu = function () {
+        $ionicSideMenuDelegate.toggleLeft();
+    }
 
     userService.resellerList()
         .then(function(response) {
